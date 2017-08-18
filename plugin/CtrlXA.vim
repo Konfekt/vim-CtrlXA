@@ -6,11 +6,14 @@ if !exists('g:CtrlXA_Toggles')
   let g:CtrlXA_Toggles = [
       \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'] ,
       \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'] ,
-      \ ['is', 'isnot'] ,
+      \ ['on', 'off'] ,
+      \ ['set', 'unset'] ,
       \ ['up', 'down'] ,
+      \ ['is', 'isnot'] ,
       \ ['right', 'wrong'], ['Right', 'Wrong'], ['rightly', 'wrongly'], ['Rightly', 'Wrongly'] ,
       \ ['enable', 'disable'], ['enabled', 'disabled'], ['Enable', 'Disable'], ['Enabled', 'Disabled'] ,
       \ ['if', 'elseif', 'else', 'endif'],
+      \ ['draft', 'final'],
       \ ]
 endif
 
