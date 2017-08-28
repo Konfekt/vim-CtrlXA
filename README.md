@@ -18,3 +18,17 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
         \ ['if', 'elseif', 'else', 'endif'],
         \ ]
 ```
+
+There is also its buffer-local analogue, which allows for file-type specific
+keyword cycles by, for example for (ba)sh scripts by  
+
+```vim
+autocmd FileType sh let b:CtrlXA_Toggles = [
+    \ ['case', 'esac'], ['if', 'elif', 'fi'],
+    \ ]               + g:CtrlXA_Toggles
+```
+This will
+
+- inherit the keyword cycles of the global variable override the cycling, and
+- give precedence to the keyword cycles of the local variable.
+
