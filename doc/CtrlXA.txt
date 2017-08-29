@@ -10,24 +10,34 @@ These keywords cycles are configurable by the global variable
 `g:CtrlXA_Toggles` which defaults to
 
 >
-let g:CtrlXA_Toggles = [
-  \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'] ,
-  \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'] ,
-  \ ['on', 'off'] ,
-  \ ['set', 'unset'] ,
-  \ ['up', 'down'] ,
-  \ ['is', 'isnot'] ,
-  \ ['right', 'wrong'], ['Right', 'Wrong'], ['rightly', 'wrongly'], ['Rightly', 'Wrongly'] ,
-  \ ['enable', 'disable'], ['enabled', 'disabled'], ['Enable', 'Disable'], ['Enabled', 'Disabled'] ,
-  \ ['if', 'elseif', 'else', 'endif'],
-  \ ]
+  let g:CtrlXA_Toggles = [
+      \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'] ,
+      \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'] ,
+      \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'] ,
+      \ ['set', 'unset'] ,
+      \ ['is', 'isnot'] ,
+      \ ['up', 'down'] ,
+      \ ['before', 'after'] ,
+      \ ['right', 'wrong'], ['Right', 'Wrong'], ['rightly', 'wrongly'], ['Rightly', 'Wrongly'] ,
+      \ ['enable', 'disable'], ['Enable', 'Disable'], ['enabled', 'disabled'], ['Enabled', 'Disabled'] ,
+      \ ]
 <
 
 There is also its buffer-local analogue, which allows for file-type specific
 keyword cycles by, for example
 
 >
-autocmd FileType sh let b:CtrlXA_Toggles = [
-    \ ['case', 'esac'], ['if', 'elif', 'fi'],
-    \ ]               + g:CtrlXA_Toggles
+  autocmd FileType vim
+              \ let b:CtrlXA_Toggles = [
+              \ ['if', 'else', 'elseif', 'endif'],
+              \ ] + g:CtrlXA_Toggles
+  autocmd FileType sh
+              \ let b:CtrlXA_Toggles = [
+              \ ['if', 'elif', 'else', 'fi'],
+              \ ] + g:CtrlXA_Toggles
+  autocmd FileType tex
+              \ let b:CtrlXA_Toggles = [
+              \ ['final', 'draft'],
+              \ ] + g:CtrlXA_Toggles
 <
+The first two file-type specific keyword cycles are already included by default.

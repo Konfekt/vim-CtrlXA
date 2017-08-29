@@ -6,16 +6,26 @@ if !exists('g:CtrlXA_Toggles')
   let g:CtrlXA_Toggles = [
       \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'] ,
       \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'] ,
-      \ ['on', 'off'] ,
+      \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'] ,
       \ ['set', 'unset'] ,
-      \ ['up', 'down'] ,
       \ ['is', 'isnot'] ,
+      \ ['up', 'down'] ,
+      \ ['before', 'after'] ,
       \ ['right', 'wrong'], ['Right', 'Wrong'], ['rightly', 'wrongly'], ['Rightly', 'Wrongly'] ,
-      \ ['enable', 'disable'], ['enabled', 'disabled'], ['Enable', 'Disable'], ['Enabled', 'Disabled'] ,
-      \ ['if', 'elseif', 'else', 'endif'],
-      \ ['draft', 'final'],
+      \ ['enable', 'disable'], ['Enable', 'Disable'], ['enabled', 'disabled'], ['Enabled', 'Disabled'] ,
       \ ]
 endif
+
+augroup CtrlXA
+  autocmd FileType vim if !exists('b:CtrlXA_Toggles') |
+              \ let b:CtrlXA_Toggles = [
+              \ ['if', 'else', 'elseif', 'endif'],
+              \ ] + g:CtrlXA_Toggles | endif
+  autocmd FileType sh if !exists('b:CtrlXA_Toggles') |
+              \ let b:CtrlXA_Toggles = [
+              \ ['if', 'elif', 'else', 'fi'],
+              \ ] + g:CtrlXA_Toggles | endif
+augroup end
 
 set nrformats-=alpha
 
