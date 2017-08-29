@@ -16,6 +16,7 @@ These keywords cycles are configurable by the global variable
       \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'] ,
       \ ['set', 'unset'] ,
       \ ['is', 'isnot'] ,
+      \ ['==', '!='] , ['<', '>'], ['<=', '>='], ['=~', '!~'],
       \ ['up', 'down'] ,
       \ ['before', 'after'] ,
       \ ['right', 'wrong'], ['Right', 'Wrong'], ['rightly', 'wrongly'], ['Rightly', 'Wrongly'] ,

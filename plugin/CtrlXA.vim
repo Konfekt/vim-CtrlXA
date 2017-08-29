@@ -9,6 +9,7 @@ if !exists('g:CtrlXA_Toggles')
       \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'] ,
       \ ['set', 'unset'] ,
       \ ['is', 'isnot'] ,
+      \ ['==', '!='] , ['<', '>'], ['<=', '>='], ['=~', '!~'],
       \ ['up', 'down'] ,
       \ ['before', 'after'] ,
       \ ['right', 'wrong'], ['Right', 'Wrong'], ['rightly', 'wrongly'], ['Rightly', 'Wrongly'] ,
