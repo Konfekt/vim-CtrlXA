@@ -24,6 +24,7 @@ These keywords cycles are configurable by the global variable
       \ ['first', 'last'],
       \ ['before', 'after'],
       \ ['enabled', 'disabled'],
+      \ ['more', 'less'],
       \ ]
 <
 
@@ -43,8 +44,8 @@ file-type specific keyword cycles by, for example
               \ let b:CtrlXA_Toggles = [
               \ ['final', 'draft'],
               \ ] + g:CtrlXA_Toggles
-  autocmd FileType gitrebase if !exists('b:CtrlXA_Toggles') |
+  autocmd FileType gitrebase |
   \ let b:CtrlXA_Toggles = [
-    \ ['pick', 'fixup', 'squash', 'reword', 'edit', 'drop'],
-    \ ] + g:CtrlXA_Toggles | endif
+    \ ['pick', 'fixup', 'squash', 'break', 'reword', 'edit', 'drop'],
+    \ ] + g:CtrlXA_Toggles
 <
