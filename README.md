@@ -1,7 +1,11 @@
 *CtrlXA*
 =========
 
-This Vim plug-in makes the key bindings `<Ctrl-X/A>` additionally cycle through keywords in lists such as `true/false`, `yes/no`, `set/unset` or `yesterday/today/tomorrow`.
+This Vim plug-in makes the key bindings `<Ctrl-X/A>` additionally cycle through lists of keywords such as `true/false`, `yes/no`, `set/unset` or `yesterday/today/tomorrow`.
+Useful, for example,
+
+- for toggling settings in a configuration file, or
+- for switching between `pick`, `squash`, `reword`, ... a `git` commit when rebasing.
 
 These keywords are configurable by the variable `g:CtrlXA_Toggles` which defaults to
 
