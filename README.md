@@ -7,6 +7,8 @@ Useful, for example,
 - for toggling settings in a configuration file, or
 - for switching between `pick`, `squash`, `reword`, ... a `git` commit when rebasing.
 
+# Configuration
+
 These keywords are configurable by the variable `g:CtrlXA_Toggles` which defaults to
 
 ```vim
@@ -64,3 +66,13 @@ There are many more toggles that could be useful, for example, to switch between
               \ ['final', 'draft'],
               \ ] + g:CtrlXA_Toggles
 ```
+
+# Related Plug-ins
+
+This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) by adding to your `.vimrc` the lines
+
+```vim
+  nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
+  nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
+```
+

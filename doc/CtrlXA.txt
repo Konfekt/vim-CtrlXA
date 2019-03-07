@@ -1,6 +1,7 @@
           CtrlXA, option toggling by Ctrl-X/A *CtrlXA* *ctrlxa*
 
 ===========================================================================
+0. Introduction ~
 
 This plug-in makes the key bindings `<Ctrl-X/A>` additionally cycle through
 keywords in lists such as `true/false`, `yes/no`, `set/unset` or
@@ -9,6 +10,9 @@ keywords in lists such as `true/false`, `yes/no`, `set/unset` or
 - for toggling settings in a configuration file, or
 - for switching between `pick`, `squash`, `reword`, ... a `git` commit when
   rebasing.
+
+===========================================================================
+1. Configuration ~
 
 These keywords cycles are configurable by the global variable
 *g:CtrlXA_Toggles* which defaults to
@@ -60,3 +64,15 @@ file-type specific keyword cycles by, for example
     \ ['pick', 'fixup', 'squash', 'break', 'reword', 'edit', 'drop'],
     \ ] + g:CtrlXA_Toggles
 <
+
+===========================================================================
+2. FAQ ~
+
+Q: Does this plugin integrate well with Tim Pope's vim-speeddating?
+A: Yes, by adding to your `.vimrc` the lines
+
+>
+  nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
+  nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
+<
+
