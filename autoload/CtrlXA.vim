@@ -14,11 +14,11 @@ function! CtrlXA#CtrlXA(CtrlAX) abort
       let next = toggle[ (i + 1) % len]
 
       if cWORD is# current
-        return "\"_ciW" . next . "\<esc>" . repeat
+        return ":\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next . "\<esc>" . repeat
       endif
 
       if cword is# current
-        return ":\<c-u>call search('\\v(\\k|\\x)','cz')\<cr>" . "\"_ciw" . next . "\<esc>" . repeat
+        return ":\<c-u>call search('[[:xdigit:][:keyword:]]','cz', line('.'))\<cr>" . "\"_ciw" . next . "\<esc>" . repeat
       endif
 
       let i = i+1
