@@ -32,6 +32,7 @@ if !exists('g:CtrlXA_Toggles')
       \ ['up', 'down'], ['Up', 'Down'] ,['UP', 'DOWN'],
       \ ['set', 'unset'],
       \ ['is', 'isnot'] ,
+      \ ['+', '-'],
       \ ['==', '!='] , ['<', '>'], ['<=', '>='], ['=~', '!~'],
       \ ['enable', 'disable'], ['Enable', 'Disable'],
       \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
@@ -47,6 +48,8 @@ if !exists('g:CtrlXA_Toggles')
       \ ['before', 'after'], ['Before', 'After'],
       \ ['more', 'less'], ['More', 'Less'],
       \ ['fast', 'slow'], ['Fast', 'Slow'],
+      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii'],
+      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
       \ ]
 endif
 

@@ -19,6 +19,7 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['up', 'down'], ['Up', 'Down'] ,['UP', 'DOWN'],
       \ ['set', 'unset'],
       \ ['is', 'isnot'] ,
+      \ ['+', '-'],
       \ ['==', '!='] , ['<', '>'], ['<=', '>='], ['=~', '!~'],
       \ ['enable', 'disable'], ['Enable', 'Disable'],
       \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
@@ -34,6 +35,8 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['before', 'after'], ['Before', 'After'],
       \ ['more', 'less'], ['More', 'Less'],
       \ ['fast', 'slow'], ['Fast', 'Slow'],
+      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii'],
+      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
       \ ]
 ```
 
