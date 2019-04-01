@@ -6,19 +6,27 @@ function! CtrlXA#CtrlXA(CtrlAX) abort
   let cWORD = expand('<cWORD>')
   let cword = expand('<cword>')
 
-  for toggle in get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
-    let len = len(toggle)
+  for toggles in get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
+    let len = len(toggles)
     let i = 0
     while i < len
-      let current = toggle[i]
-      let next = toggle[ (i + 1) % len]
+      let current_toggle = toggles[i]
 
-      if cWORD is# current
-        return ":\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next . "\<esc>" . repeat
+      if a:CtrlAX is# "\<C-A>"
+        let next_i = (i + 1) % len
+      else
+        let next_i = (i - 1) % len
+        " See https://ddrscott.github.io/blog/2016/negative-modulo/
+        if next_i == -1 | let next_i = len-1 | endif
+      endif
+      let next_toggle = toggles[next_i]
+
+      if cWORD is# current_toggle
+        return ":\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next_toggle . "\<esc>" . repeat
       endif
 
-      if cword is# current
-        return ":\<c-u>call search('[[:xdigit:][:keyword:]]','cz', line('.'))\<cr>" . "\"_ciw" . next . "\<esc>" . repeat
+      if cword is# current_toggle
+        return ":\<c-u>call search('[[:xdigit:][:keyword:]]','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>" . repeat
       endif
 
       let i = i+1
