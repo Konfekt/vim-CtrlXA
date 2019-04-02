@@ -13,10 +13,10 @@ function! CtrlXA#CtrlXA(CtrlAX) abort
       let current_toggle = toggles[i]
 
       if a:CtrlAX is# "\<C-A>"
-        let next_i = (i + 1) % len
+        let next_i = i + 1
+        if next_i == len | let next_i = 0 | endif
       else
-        let next_i = (i - 1) % len
-        " See https://ddrscott.github.io/blog/2016/negative-modulo/
+        let next_i = i - 1
         if next_i == -1 | let next_i = len-1 | endif
       endif
       let next_toggle = toggles[next_i]
