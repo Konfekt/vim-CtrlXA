@@ -25,6 +25,7 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
       \ ['maximum', 'minimum'], ['Maximum', 'Minimum'],
       \ ['maximal', 'minimal'], ['Maximal', 'Minimal'],
+      \ ['maximize', 'minimize'], ['Maximize', 'Minimize'],
       \ ['upper', 'lower'], ['Upper', 'Lower'],
       \ ['top', 'bottom'], ['Top', 'Bottom'],
       \ ['above', 'below'], ['Above', 'Below'],
@@ -35,8 +36,10 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['before', 'after'], ['Before', 'After'],
       \ ['more', 'less'], ['More', 'Less'],
       \ ['fast', 'slow'], ['Fast', 'Slow'],
-      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii'],
-      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
+      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'viii'],
+      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VIII'],
+      \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+      \ ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
       \ ]
 ```
 
