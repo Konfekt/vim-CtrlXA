@@ -70,6 +70,8 @@ augroup CtrlXA
               \ let b:CtrlXA_Toggles = [
               \ ['pick', 'fixup', 'squash', 'break', 'reword', 'edit', 'drop'],
               \ ] + g:CtrlXA_Toggles | endif
+  autocmd FileType vim,sh,gitrebase let b:undo_ftplugin = 
+        \ exists('b:undo_ftplugin') ? b:undo_ftplugin . '| unlet b:CtrlXA_Toggles' : 'unlet b:CtrlXA_Toggles'
 augroup end
 
 set nrformats-=alpha
