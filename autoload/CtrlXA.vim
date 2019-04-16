@@ -2,7 +2,7 @@ function! CtrlXA#CtrlXA(key) abort
   " use vim-repeat to ensure @. = <C-A/X>
   let repeat = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
 
-  let increment = a:key is# "\<C-A>" ? 1 : -1
+  let increment = v:count1 * (a:key is# "\<C-A>" ? 1 : -1)
 
   " first try matching cWORD, then cword
   let cWORD = expand('<cWORD>')
@@ -14,10 +14,7 @@ function! CtrlXA#CtrlXA(key) abort
     while i < len
       let current_toggle = toggles[i]
 
-      let next_i = i + increment
-      if      next_i == len | let next_i = 0 |
-      elseif  next_i == -1 | let next_i = len-1
-      endif
+      let next_i = (i + increment) % len
       let next_toggle = toggles[next_i]
 
       if cWORD is# current_toggle
