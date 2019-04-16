@@ -36,12 +36,14 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['before', 'after'], ['Before', 'After'],
       \ ['more', 'less'], ['More', 'Less'],
       \ ['fast', 'slow'], ['Fast', 'Slow'],
+      \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z'],
+      \ ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y', 'Z'],
       \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'viii'],
       \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VIII'],
-      \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
-      \ ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
       \ ]
 ```
+
+If you prefer `i`, `v` and `I`, `V` to run through the letters of the Latin alphabet instead of the Roman numerals, move them from the last pair of arrays two the penultimate one.
 
 There is also its buffer-local analogue, which allows for file-type specific
 keyword cycles by, for example, as included by default,
