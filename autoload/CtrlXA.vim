@@ -14,14 +14,15 @@ function! CtrlXA#CtrlXA(key) abort
     while i < len
       let current_toggle = toggles[i]
 
-      let next_i = (i + increment) % len
-      let next_toggle = toggles[next_i]
-
       if cWORD is# current_toggle
+        let next_toggle = toggles[(i + increment) % len]
+
         return ":\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next_toggle . "\<esc>" . repeat
       endif
 
       if cword is# current_toggle
+        let next_toggle = toggles[(i + increment) % len]
+
         return ":\<c-u>call search('[[:xdigit:][:keyword:]]','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>" . repeat
       endif
 
