@@ -26,14 +26,17 @@ set cpo&vim
 
 if !exists('g:CtrlXA_Toggles')
   let g:CtrlXA_Toggles = [
+      \ ['&&', '||'],
+      \ ['+', '-'], ['++', '--'],
+      \ ['==', '!='] , ['=~', '!~'],
+      \ ['<', '>'], ['<=', '>='], ['>>', '<<'],
+      \ ['verbose', 'debug', 'info', 'warn', 'error', 'fatal'], 
       \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'],
       \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'],
       \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'],
       \ ['up', 'down'], ['Up', 'Down'] ,['UP', 'DOWN'],
       \ ['set', 'unset'],
       \ ['is', 'isnot'] ,
-      \ ['+', '-'],
-      \ ['==', '!='] , ['<', '>'], ['<=', '>='], ['=~', '!~'],
       \ ['enable', 'disable'], ['Enable', 'Disable'],
       \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
       \ ['maximum', 'minimum'], ['Maximum', 'Minimum'],

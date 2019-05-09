@@ -13,14 +13,17 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
 
 ```vim
   let g:CtrlXA_Toggles = [
+      \ ['&&', '||'],
+      \ ['+', '-'], ['++', '--'],
+      \ ['==', '!='] , ['=~', '!~'],
+      \ ['<', '>'], ['<=', '>='], ['>>', '<<'],
+      \ ['verbose', 'debug', 'info', 'warn', 'error', 'fatal'],
       \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'],
       \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'],
       \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'],
       \ ['up', 'down'], ['Up', 'Down'] ,['UP', 'DOWN'],
       \ ['set', 'unset'],
       \ ['is', 'isnot'] ,
-      \ ['+', '-'],
-      \ ['==', '!='] , ['<', '>'], ['<=', '>='], ['=~', '!~'],
       \ ['enable', 'disable'], ['Enable', 'Disable'],
       \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
       \ ['maximum', 'minimum'], ['Maximum', 'Minimum'],
@@ -38,8 +41,8 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['fast', 'slow'], ['Fast', 'Slow'],
       \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z'],
       \ ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y', 'Z'],
-      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'viii'],
-      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VIII'],
+      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'viii', 'ix'],
+      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VIII', 'IX'],
       \ ]
 ```
 
