@@ -40,6 +40,7 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['more', 'less'], ['More', 'Less'],
       \ ['fast', 'slow'], ['Fast', 'Slow'],
       \ ['light', 'dark'] , ['Light', 'Dark'] ,
+      \ ['good', 'bad'], ['Good', 'Bad'],
       \ ['alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omikron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega'],
       \ ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omikron', 'Pi', 'Rho',  'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'],
       \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z'],
@@ -50,6 +51,32 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
 ```
 
 If you prefer `i`, `v` and `I`, `V` to run through the letters of the Latin alphabet instead of the Roman numerals, move them from the last pair of arrays two the penultimate one.
+
+## Global Configuration
+
+If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default list of cycles, then
+
+- either put
+
+    ```vim
+    let g:CtrlXA_Toggles = [
+        \ ['sweet', 'bitter'],
+        \ ] + g:CtrlXA_Toggles
+    ```
+
+    into a file `~/.vim/after/plugin/CtrlXA.vim` on Linux respectively (`%USERPROFILE%\vimfiles\after\plugin\CtrlXA.vim` on Microsoft Windows), or
+- put into your `vimrc` the lines
+
+    ```vim
+    augroup VimAfter
+        autocmd!
+        autocmd VimEnter let g:CtrlXA_Toggles = [
+        \ ['sweet', 'bitter'],
+        \ ] + g:CtrlXA_Toggles
+    augroup END
+    ```
+
+## Buffer-Local Configuration
 
 There is also its buffer-local analogue, which allows for file-type specific
 keyword cycles by, for example, as included by default,
@@ -68,6 +95,7 @@ keyword cycles by, for example, as included by default,
               \ ['if', 'elif', 'else', 'fi'],
               \ ] + g:CtrlXA_Toggles
 ```
+
 This will
 
 - include all keyword cycles of the global variable, and
@@ -83,10 +111,11 @@ There are many more toggles that could be useful, for example, to switch between
 
 # Related Plug-ins
 
-This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) by adding to your `.vimrc` the lines
+- This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) by adding to your `.vimrc` the lines
 
-```vim
-  nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
-  nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
-```
+    ```vim
+    nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
+    nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
+    ```
 
+- Andrew Radew's [switch.vim](https://github.com/AndrewRadev/switch.vim) offers similar functionality and accepts words with spaces in cycles.
