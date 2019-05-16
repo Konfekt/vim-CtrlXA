@@ -122,11 +122,20 @@ to the file `~/.vim/after/ftplugin/tex.vim` on Linux (respectively `%USERPROFILE
 
 # Related Plug-ins
 
-- This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) by adding to your `.vimrc` the lines
+This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) by adding to your `.vimrc` the lines
 
     ```vim
     nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
     nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
     ```
 
-- Andrew Radew's [switch.vim](https://github.com/AndrewRadev/switch.vim) offers similar functionality and accepts words with spaces in cycles.
+Vim plug-ins that provide similar functionality and more are
+
+- Andrew Radew's [switch.vim](https://github.com/AndrewRadev/switch.vim#more-complicated-mappings) which can cycle between expressions containing spaces;
+
+- @bootleq's [vim-cycle](https://github.com/bootleq/vim-cycle/) which
+
+    - supports pairs in `LaTeX`, for example, cycles between `\big( a + b \big)` and `\Big( a +b \Big)`, and
+    - preserves upper and lower case by options such as `match_case`, `hard_case` and `match_word`.
+
+Please see @kiryph's [compilation](https://github.com/Konfekt/vim-CtrlXA/issues/1#issuecomment-325425550) for further alternatives.
