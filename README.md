@@ -64,7 +64,7 @@ If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default l
         \ ] + g:CtrlXA_Toggles
     ```
 
-    into a file `~/.vim/after/plugin/CtrlXA.vim` on Linux respectively (`%USERPROFILE%\vimfiles\after\plugin\CtrlXA.vim` on Microsoft Windows), or
+    into a file `~/.vim/after/plugin/CtrlXA.vim` on Linux (respectively `%USERPROFILE%\vimfiles\after\plugin\CtrlXA.vim` on Microsoft Windows), or
 - put into your `vimrc` the lines
 
     ```vim
@@ -82,18 +82,18 @@ There is also its buffer-local analogue, which allows for file-type specific
 keyword cycles by, for example, as included by default,
 
 ```vim
-  autocmd FileType gitrebase
-              \ let b:CtrlXA_Toggles = [
-              \ ['pick', 'fixup', 'squash', 'break', 'reword', 'edit', 'drop'],
-              \ ] + g:CtrlXA_Toggles
-  autocmd FileType vim
-              \ let b:CtrlXA_Toggles = [
-              \ ['if', 'else', 'elseif', 'endif'],
-              \ ] + g:CtrlXA_Toggles
-  autocmd FileType sh
-              \ let b:CtrlXA_Toggles = [
-              \ ['if', 'elif', 'else', 'fi'],
-              \ ] + g:CtrlXA_Toggles
+    autocmd FileType gitrebase
+                \ let b:CtrlXA_Toggles = [
+                \ ['pick', 'fixup', 'squash', 'break', 'reword', 'edit', 'drop'],
+                \ ] + g:CtrlXA_Toggles
+    autocmd FileType vim
+                \ let b:CtrlXA_Toggles = [
+                \ ['if', 'else', 'elseif', 'endif'],
+                \ ] + g:CtrlXA_Toggles
+    autocmd FileType sh
+                \ let b:CtrlXA_Toggles = [
+                \ ['if', 'elif', 'else', 'fi'],
+                \ ] + g:CtrlXA_Toggles
 ```
 
 This will
@@ -102,12 +102,23 @@ This will
 - add (buffer-)local keyword cycles which have precedence over the global cycles.
 
 There are many more toggles that could be useful, for example, to switch between the draft and final version of a `TeX` document, add:
+
 ```vim
-  autocmd FileType tex
-              \ let b:CtrlXA_Toggles = [
-              \ ['final', 'draft'],
-              \ ] + g:CtrlXA_Toggles
+    autocmd FileType tex
+                \ let b:CtrlXA_Toggles = [
+                \ ['final', 'draft'],
+                \ ] + g:CtrlXA_Toggles
 ```
+
+When there are already default cycles for a file type, say for `TeX`, replace the latter `g:CtrlXA_Toggles` by its buffer-local analogue `b:CtrlXA_Toggles` and add the line
+
+```vim
+    \ let b:CtrlXA_Toggles = [
+    \ ['final', 'draft'],
+    \ ] + b:CtrlXA_Toggles
+```
+
+to the file `~/.vim/after/ftplugin/tex.vim` on Linux (respectively `%USERPROFILE%\vimfiles\after\ftplugin\tex.vim` on Microsoft Windows).
 
 # Related Plug-ins
 

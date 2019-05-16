@@ -3,12 +3,12 @@
 ===========================================================================
 0. Introduction ~
 
-This plug-in makes the key bindings `<Ctrl-X/A>` additionally cycle through
-keywords in lists such as `true/false`, `yes/no`, `set/unset` or
-`yesterday/today/tomorrow`. Useful, for example,
+This plug-in makes the key bindings *CTRL-X* and *CTRL-A* additionally cycle
+through keywords in lists such as 'true/false', 'yes/no', 'set/unset' or
+'yesterday/today/tomorrow'. Useful, for example,
 
 - for toggling settings in a configuration file, or
-- for switching between `pick`, `squash`, `reword`, ... a `git` commit when
+- for switching between 'pick', 'squash', 'reword', ... a git commit when
   rebasing.
 
 ===========================================================================
@@ -69,9 +69,8 @@ default list of cycles, then
         \ ] + g:CtrlXA_Toggles
 <
 
-  into a file `~/.vim/after/plugin/CtrlXA.vim` on Linux respectively
-  (`%USERPROFILE%\vimfiles\after\plugin\CtrlXA.vim` on Microsoft Windows), or
-
+  into a file '~/.vim/after/plugin/CtrlXA.vim' on Linux (respectively
+  '%USERPROFILE%\vimfiles\after\plugin\CtrlXA.vim' on Microsoft Windows), or
 - put into your `vimrc` the lines
 >
     augroup VimAfter
@@ -104,11 +103,22 @@ file-type specific keyword cycles by, for example
     \ ] + g:CtrlXA_Toggles
 <
 
+When there are already default cycles for a file type, say for 'TeX', replace the latter `g:CtrlXA_Toggles` by its buffer-local analogue `b:CtrlXA_Toggles` and add the line
+
+>
+  \ let b:CtrlXA_Toggles = [
+  \ ['final', 'draft'],
+  \ ] + b:CtrlXA_Toggles
+<
+
+to the file '~/.vim/after/ftplugin/tex.vim' on Linux (respectively
+'%USERPROFILE%\vimfiles\after\ftplugin\tex.vim' on Microsoft Windows).
+
 ===========================================================================
 2. FAQ ~
 
 Q: Does this plugin integrate well with Tim Pope's vim-speeddating?
-A: Yes, by adding to your `.vimrc` the lines
+A: Yes, by adding to your `vimrc` the lines
 
 >
   nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
