@@ -18,6 +18,8 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['==', '!='] , ['=~', '!~'],
       \ ['<', '>'], ['<=', '>='], ['>>', '<<'],
       \ ['verbose', 'debug', 'info', 'warn', 'error', 'fatal'],
+      \ ['remote', 'local', 'base'], ['REMOTE', 'LOCAL', 'BASE'],
+      \ ['ours', 'theirs'], ['Ours', 'Theirs'],
       \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'],
       \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'],
       \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'],
