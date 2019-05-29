@@ -52,7 +52,7 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ]
 ```
 
-If you prefer `i`, `v` and `I`, `V` to run through the letters of the Latin alphabet instead of the Roman numerals, move them from the last pair of arrays two the penultimate one.
+If you prefer the letters `i`, `v` and `I`, `V` to run through the Latin alphabet instead of the Roman numerals, move these letters from the last pair of arrays two the penultimate one.
 
 ## Global Configuration
 
@@ -126,10 +126,10 @@ to the file `~/.vim/after/ftplugin/tex.vim` on Linux (respectively `%USERPROFILE
 
 This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) by adding to your `.vimrc` the lines
 
-    ```vim
-    nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
-    nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
-    ```
+```vim
+nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
+nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
+```
 
 Vim plug-ins that provide similar functionality and more are
 
@@ -140,4 +140,4 @@ Vim plug-ins that provide similar functionality and more are
     - supports pairs in `LaTeX`, for example, cycles between `\big( a + b \big)` and `\Big( a +b \Big)`, and
     - preserves upper and lower case by options such as `match_case`, `hard_case` and `match_word`.
 
-Please see @kiryph's [compilation](https://github.com/Konfekt/vim-CtrlXA/issues/1#issuecomment-325425550) for further alternatives.
+See @kiryph's [compilation](https://github.com/Konfekt/vim-CtrlXA/issues/1#issuecomment-325425550) for further alternatives.
