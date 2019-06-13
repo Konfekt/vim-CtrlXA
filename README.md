@@ -133,7 +133,7 @@ nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
 
 Vim plug-ins that provide similar functionality and more are
 
-- Andrew Radew's [switch.vim](https://github.com/AndrewRadev/switch.vim#more-complicated-mappings) which can cycle between expressions containing spaces;
+- Andrew Radev's [switch.vim](https://github.com/AndrewRadev/switch.vim#more-complicated-mappings) which can cycle between expressions containing spaces;
 
 - @bootleq's [vim-cycle](https://github.com/bootleq/vim-cycle/) which
 
