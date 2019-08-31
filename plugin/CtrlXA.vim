@@ -51,6 +51,7 @@ if !exists('g:CtrlXA_Toggles')
       \ ['right', 'middle', 'left'], ['Right', 'Middle', 'Left'],
       \ ['next', 'previous'], ['Next', 'Previous'],
       \ ['first', 'last'], ['First', 'Last'],
+      \ ['begin', 'end'], ['Begin', 'End'],
       \ ['before', 'after'], ['Before', 'After'],
       \ ['more', 'less'], ['More', 'Less'],
       \ ['fast', 'slow'], ['Fast', 'Slow'],
