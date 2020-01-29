@@ -3,13 +3,20 @@
 ===========================================================================
 0. Introduction ~
 
-This plug-in makes the key bindings *CTRL-X* and *CTRL-A* additionally cycle
-through keywords in lists such as 'true/false', 'yes/no', 'set/unset' or
-'yesterday/today/tomorrow'. Useful, for example,
+This plug-in makes the key bindings |CTRL-X| and |CTRL-A| (as well as
+|v_g_CTRL-X| and |v_g_CTRL-A|) additionally cycle through keywords in lists
+such as 'true/false', 'yes/no', 'set/unset' or 'yesterday/today/tomorrow'
+or roman numerals 'I', 'II', 'III'... Useful, for example,
 
 - for toggling settings in a configuration file, or
 - for switching between 'pick', 'squash', 'reword', ... a git commit when
   rebasing.
+
+Repetition of the last command by hitting |.| in normal mode is made possible
+by vim-repeat [1] and in visual mode by vim-visualrepeat [2].
+
+[1]: https://github.com/tpope/vim-repeat
+[2]: https://github.com/inkarkat/vim-visualrepeat
 
 ===========================================================================
 1. Configuration ~

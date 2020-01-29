@@ -1,13 +1,15 @@
-*CtrlXA*
-=========
-
-This Vim plug-in makes the key bindings `<Ctrl-X/A>` additionally cycle through lists of keywords such as `true/false`, `yes/no`, `set/unset` or `yesterday/today/tomorrow`.
+This Vim plug-in makes the key bindings `<Ctrl-X/A>` (and `g<Ctrl-X/A>`) additionally cycle through lists of keywords such as `true/false`, `yes/no`, `set/unset`, `yesterday/today/tomorrow` or roman numerals `I`, `II`, `III`...
 Useful, for example,
 
 - for toggling settings in a configuration file, or
 - for switching between `pick`, `squash`, `reword`, ... a `git` commit when rebasing.
 
-# Configuration
+Repetition of the last command by hitting `.` (see `:help .`)
+
+- in normal mode is made possible by [vim-repeat](https://github.com/tpope/vim-repeat), and
+- in visual mode by [vim-visualrepeat](https://github.com/inkarkat/vim-visualrepeat).
+
+# Setup
 
 These keywords are configurable by the variable `g:CtrlXA_Toggles` which defaults to
 
@@ -54,7 +56,7 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
 
 If you prefer the letters `i`, `v` and `I`, `V` to run through the Latin alphabet instead of the Roman numerals, move these letters from the last pair of arrays two the penultimate one.
 
-## Global Configuration
+## Global Configuration Options
 
 If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default list of cycles, then
 
@@ -78,7 +80,7 @@ If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default l
     augroup END
     ```
 
-## Buffer-Local Configuration
+## Buffer-Local Configuration Options
 
 There is also its buffer-local analogue, which allows for file-type specific
 keyword cycles by, for example, as included by default,
@@ -131,10 +133,11 @@ nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
 nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
 ```
 
+---
+
 Vim plug-ins that provide similar functionality and more are
 
 - Andrew Radev's [switch.vim](https://github.com/AndrewRadev/switch.vim#more-complicated-mappings) which can cycle between expressions containing spaces;
-
 - @bootleq's [vim-cycle](https://github.com/bootleq/vim-cycle/) which
 
     - supports pairs in `LaTeX`, for example, cycles between `\big( a + b \big)` and `\Big( a +b \Big)`, and
