@@ -35,13 +35,14 @@ endfunction
 
 function! CtrlXA#MultipleInc(key)
   " increment current line as in normal mode to make '< and '> work
-  exe "normal " . v:count1 . a:key
+  let cnt = v:count1
+  exe "normal " . cnt . a:key
   if line("'<") < line("'>")
     " increment all subsequent lines
-    exe "'<+1,'>normal " . v:count1 . a:key
+    exe "'<+1,'>normal " . cnt . a:key
   endif
 
-  silent! call repeat#set(a:key , v:count)
+  silent! call repeat#set(a:key , cnt)
 endfunction
 
 " Adapted from https://github.com/triglav/vim-visual-increment/blob/f34abd2df6dfd29340fd0b14ad651949c8265a7f/plugin/visual-increment.vim
@@ -51,20 +52,21 @@ function! CtrlXA#SuccessiveInc(key)
   let end_row = line("'>")
 
   " increment current line as in normal mode to make '< and '> work
-  exe "normal " . v:count1 . a:key
-  " increment each following line i by i * v:count1
-  let i = 1
+  let cnt = v:count1
+  exe "normal " . cnt . a:key
+  " increment each following line i by i * cnt
+  let i = cnt
   while line('.') < end_row
     " move to the next line, ...
     call setpos('.', [0, line('.') + 1, start_column, 0])
     " ... but skip it if shorter than cursor column
     if start_column < col('$')
-      let i += v:count1 
-      " increment the current line i by i * v:count1
+      let i += cnt 
+      " increment the current line i by i * cnt
       exe "normal " . i . a:key
     end
   endwhile
 
   silent! call repeat#set(
-        \ (a:key is? "\<Plug>(CtrlXA-CtrlA)" ? "\<Plug>(CtrlXA-gCtrlA)" : "\<Plug>(CtrlXA-gCtrlX)"), v:count)
+        \ (a:key is? "\<Plug>(CtrlXA-CtrlA)" ? "\<Plug>(CtrlXA-gCtrlA)" : "\<Plug>(CtrlXA-gCtrlX)"), cnt)
 endfunction
