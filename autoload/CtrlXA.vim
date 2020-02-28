@@ -17,13 +17,13 @@ function! CtrlXA#SingleInc(key) abort
       if cWORD is# current_toggle
         let next_toggle = toggles[(i + increment) % len]
 
-        return ":\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next_toggle . "\<esc>" . repeat
+        return "m`:\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next_toggle . "\<esc>g``" . repeat
       endif
 
       if cword is# current_toggle
         let next_toggle = toggles[(i + increment) % len]
 
-        return ":\<c-u>call search('[[:xdigit:][:keyword:]]','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>" . repeat
+        return "m`:\<c-u>call search('[[:xdigit:][:keyword:]]','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>g``" . repeat
       endif
 
       let i = i+1
