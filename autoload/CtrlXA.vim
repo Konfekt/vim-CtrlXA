@@ -48,22 +48,23 @@ endfunction
 " Adapted from https://github.com/triglav/vim-visual-increment/blob/f34abd2df6dfd29340fd0b14ad651949c8265a7f/plugin/visual-increment.vim
 function! CtrlXA#SuccessiveInc(key)
   let start_column = col("'<")
+  let end_column = col("'>")
   let start_row = line("'<")
   let end_row = line("'>")
 
-  " increment current line as in normal mode to make '< and '> work
+  " increment each line i by i * cnt
   let cnt = v:count1
-  exe "normal " . cnt . a:key
-  " increment each following line i by i * cnt
   let i = cnt
+  " start at begin of selection
+  call setpos('.', [0, nextnonblank(start_row), start_column, 0])
   while line('.') < end_row
     " move to the next line, ...
     call setpos('.', [0, line('.') + 1, start_column, 0])
-    " ... but skip it if shorter than cursor column
-    if start_column < col('$')
-      let i += cnt 
+    " ... but skip it if selection is beyond cursor column or blank
+    if start_column < col('$') && getline('.')[start_column-1 : end_column-1] =~# '\S'
       " increment the current line i by i * cnt
       exe "normal " . i . a:key
+      let i += cnt 
     end
   endwhile
 
