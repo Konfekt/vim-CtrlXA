@@ -33,7 +33,7 @@ function! CtrlXA#SingleInc(key) abort
   return a:key . repeat
 endfunction
 
-function! CtrlXA#MultipleInc(key)
+function! CtrlXA#MultipleInc(key) abort
   " increment current line as in normal mode to make '< and '> work
   let cnt = v:count1
   exe "normal " . cnt . a:key
@@ -46,7 +46,7 @@ function! CtrlXA#MultipleInc(key)
 endfunction
 
 " Adapted from https://github.com/triglav/vim-visual-increment/blob/f34abd2df6dfd29340fd0b14ad651949c8265a7f/plugin/visual-increment.vim
-function! CtrlXA#SuccessiveInc(key)
+function! CtrlXA#SuccessiveInc(key) abort
   let start_column = col("'<")
   let end_column = col("'>")
   let start_row = line("'<")
@@ -67,13 +67,16 @@ function! CtrlXA#SuccessiveInc(key)
         let i += cnt 
       endif
     endif
-    let next_line = line('.') + 1
     " move to the next line
-    if next_line <= last_line
-      call setpos('.', [0, next_line, start_column, 0])
-    else
+    let next_line = line('.') + 1
+    if next_line > last_line
       break
     endif
+    let next_line = nextnonblank(next_line)
+    if next_line == 0
+      break
+    endif
+    call setpos('.', [0, next_line, start_column, 0])
   endwhile
 
   silent! call repeat#set(
