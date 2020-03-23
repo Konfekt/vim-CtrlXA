@@ -47,11 +47,18 @@ endfunction
 
 " Adapted from https://github.com/triglav/vim-visual-increment/blob/f34abd2df6dfd29340fd0b14ad651949c8265a7f/plugin/visual-increment.vim
 function! CtrlXA#SuccessiveInc(key) abort
-  let start_column = col("'<")
-  let end_column = col("'>")
+  let last_line = line('$')
+
   let start_row = line("'<")
   let end_row = line("'>")
-  let last_line = line('$')
+  let start_column = col("'<")
+  let end_column = col("'>")
+
+  let is_blockmode = (visualmode() ==# "\<C-v>")
+  if is_blockmode && start_column > end_column
+    let start_column =  col("'>")
+    let end_column =  col("'<")
+  endif
 
   let cnt = v:count1
   let i = cnt
@@ -59,7 +66,8 @@ function! CtrlXA#SuccessiveInc(key) abort
   call setpos('.', [0, nextnonblank(start_row), start_column, 0])
   while line('.') <= end_row
     " skip if selection is beyond cursor column or blank
-    if start_column < col('$') && getline('.')[start_column-1 : end_column-1] =~# '\S'
+    let selection = (is_blockmode ? getline('.')[start_column-1 : end_column-1] : getline('.'))
+    if (!is_blockmode || start_column < col('$')) && selection =~# '\S'
       " increment only if some keyword was incremented
       let ct = b:changedtick
       exe "normal " . i . a:key
