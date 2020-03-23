@@ -51,21 +51,29 @@ function! CtrlXA#SuccessiveInc(key)
   let end_column = col("'>")
   let start_row = line("'<")
   let end_row = line("'>")
+  let last_line = line('$')
 
-  " increment each line i by i * cnt
   let cnt = v:count1
   let i = cnt
   " start at begin of selection
   call setpos('.', [0, nextnonblank(start_row), start_column, 0])
-  while line('.') < end_row
-    " move to the next line, ...
-    call setpos('.', [0, line('.') + 1, start_column, 0])
-    " ... but skip it if selection is beyond cursor column or blank
+  while line('.') <= end_row
+    " skip if selection is beyond cursor column or blank
     if start_column < col('$') && getline('.')[start_column-1 : end_column-1] =~# '\S'
-      " increment the current line i by i * cnt
+      " increment only if some keyword was incremented
+      let ct = b:changedtick
       exe "normal " . i . a:key
-      let i += cnt 
-    end
+      if b:changedtick > ct
+        let i += cnt 
+      endif
+    endif
+    let next_line = line('.') + 1
+    " move to the next line
+    if next_line <= last_line
+      call setpos('.', [0, next_line, start_column, 0])
+    else
+      break
+    endif
   endwhile
 
   silent! call repeat#set(
