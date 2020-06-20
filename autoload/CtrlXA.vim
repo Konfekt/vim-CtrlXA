@@ -38,8 +38,9 @@ function! CtrlXA#MultipleInc(key) abort
   let cnt = v:count1
   exe "normal " . cnt . a:key
   if line("'<") < line("'>")
+    let is_blockmode = (visualmode() ==# "\<C-v>")
     " increment all subsequent lines
-    exe "'<+1,'>normal " . cnt . a:key
+    exe "'<+1,'>normal " . (is_blockmode ? col("'<") . "|" : '') . cnt . a:key
   endif
 
   silent! call repeat#set(a:key , cnt)
