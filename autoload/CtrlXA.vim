@@ -23,7 +23,7 @@ function! CtrlXA#SingleInc(key) abort
       if cword is# current_toggle
         let next_toggle = toggles[(i + increment) % len]
 
-        return "m`:\<c-u>call search('[[:xdigit:][:keyword:]]','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>g``" . repeat
+        return "m`viwo\<esc>:\<c-u>call search('" . cword . "','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>g``" . repeat
       endif
 
       let i = i+1
