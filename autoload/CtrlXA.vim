@@ -1,6 +1,9 @@
 function! CtrlXA#SingleInc(key) abort
   " use vim-repeat to ensure @. = <C-A/X>
   let repeat = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
+  " only jump the cursor back if it would leave it before the end of the new
+  " word to allow repeat toggles.
+  let jump_back = ":if col('.')>col(\"'`\")|exe 'normal g``'|endif\<cr>"
 
   let increment = v:count1 * (a:key is? "\<C-A>" ? 1 : -1)
 
@@ -17,13 +20,13 @@ function! CtrlXA#SingleInc(key) abort
       if cWORD is# current_toggle
         let next_toggle = toggles[(i + increment) % len]
 
-        return "m`:\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next_toggle . "\<esc>g``" . repeat
+        return "m`:\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next_toggle . "\<esc>" . jump_back . repeat
       endif
 
       if cword is# current_toggle
         let next_toggle = toggles[(i + increment) % len]
 
-        return "m`viwo\<esc>:\<c-u>call search('" . cword . "','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>g``" . repeat
+        return "m`viwo\<esc>:\<c-u>call search('" . cword . "','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>" . jump_back . repeat
       endif
 
       let i = i+1
