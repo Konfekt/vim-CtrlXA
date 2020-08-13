@@ -3,11 +3,10 @@ function! CtrlXA#SingleInc(key) abort
   let repeat = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
   " only jump the cursor back if it would leave it before the end of the new
   " word to allow repeat toggles.
-  let jump_back = ":if col('.')>col(\"'`\")|exe 'normal! g``'|endif\<cr>"
+  let jump_back = ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
 
   let increment = v:count1 * (a:key is? "\<C-A>" ? 1 : -1)
 
-  " first try matching cWORD, then cword
   let cWORD = expand('<cWORD>')
   let cword = expand('<cword>')
 
@@ -17,19 +16,20 @@ function! CtrlXA#SingleInc(key) abort
     while i < len
       let current_toggle = toggles[i]
 
-      if cWORD is# current_toggle
+      if cWORD is# current_toggle || search('\V\C\s' . escape(current_toggle, '\') . '\s', 'czn', line('.')) > 0
         let next_toggle = toggles[(i + increment) % len]
 
-        return  "m`" .
-              \ ":\<c-u>call search('\\S','cz', line('.'))\<cr>" .  "\"_ciW" . next_toggle . "\<esc>" .
+        return  "m`viWo\<esc>" .
+              \ ":\<c-u>call search(" . "'" . "\\V\\C\\(\\s\\|\\^\\)\\zs" . escape(escape(current_toggle, '\'),'\') . "\\ze\\(\\s\\|\\$\\)" . "'" . ",'cz', line('.'))\<cr>" .
+              \ "\"_ciW" . next_toggle . "\<esc>" .
               \ jump_back . repeat
       endif
 
-      if cword is# current_toggle
+      if cword is# current_toggle || search('\V\C\<' . escape(current_toggle, '\') . '\>', 'czn', line('.')) > 0
         let next_toggle = toggles[(i + increment) % len]
 
         return  "m`viwo\<esc>" .
-              \ ":\<c-u>call search(" . "'\\V\\<" . escape(escape(cword, '\'),'\') . "\\>" . "','cz', line('.'))\<cr>" .
+              \ ":\<c-u>call search(" . "'" . "\\V\\C\\<\\zs" . escape(escape(current_toggle, '\'),'\') . "\\ze\\>" . "'" . ",'cz', line('.'))\<cr>" .
               \ "\"_ciw" . next_toggle . "\<esc>" .
               \ jump_back . repeat
       endif
@@ -61,9 +61,9 @@ function! CtrlXA#MultipleInc(key, successive) abort
   " start at begin of selection
   call setpos('.', [0, nextnonblank(start_row), start_column, 0])
   while line('.') <= end_row
-    " skip if selection is beyond cursor column or blank
+    " skip if selection is beyond cursor column
     let selection = (is_blockmode ? getline('.')[start_column-1 : end_column-1] : getline('.'))
-    if (!is_blockmode || start_column < col('$')) && selection =~# '\S'
+    if !is_blockmode || start_column < col('$')
       " increment only if some keyword was incremented
       let ct = b:changedtick
       exe "normal " . i . a:key
