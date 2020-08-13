@@ -88,10 +88,10 @@ set nrformats-=alpha
 
 nnoremap <silent><expr> <Plug>(CtrlXA-CtrlA)  CtrlXA#SingleInc("\<C-A>")
 nnoremap <silent><expr> <Plug>(CtrlXA-CtrlX)  CtrlXA#SingleInc("\<C-X>")
-xnoremap <silent>       <Plug>(CtrlXA-CtrlA)  :<C-u>call CtrlXA#MultipleInc("\<Plug>(CtrlXA-CtrlA)")<CR>
-xnoremap <silent>       <Plug>(CtrlXA-CtrlX)  :<C-u>call CtrlXA#MultipleInc("\<Plug>(CtrlXA-CtrlX)")<CR>
-xnoremap <silent>       <Plug>(CtrlXA-gCtrlA) :<C-u>call CtrlXA#SuccessiveInc("\<Plug>(CtrlXA-CtrlA)")<CR>
-xnoremap <silent>       <Plug>(CtrlXA-gCtrlX) :<C-u>call CtrlXA#SuccessiveInc("\<Plug>(CtrlXA-CtrlX)")<CR>
+xnoremap <silent>       <Plug>(CtrlXA-CtrlA)  :<C-u>call CtrlXA#MultipleInc("\<Plug>(CtrlXA-CtrlA)", '0')<CR>
+xnoremap <silent>       <Plug>(CtrlXA-CtrlX)  :<C-u>call CtrlXA#MultipleInc("\<Plug>(CtrlXA-CtrlX)", '0')<CR>
+xnoremap <silent>       <Plug>(CtrlXA-gCtrlA) :<C-u>call CtrlXA#MultipleInc("\<Plug>(CtrlXA-CtrlA)", '1')<CR>
+xnoremap <silent>       <Plug>(CtrlXA-gCtrlX) :<C-u>call CtrlXA#MultipleInc("\<Plug>(CtrlXA-CtrlX)", '1')<CR>
 
 silent! nmap <unique>   <C-A> <Plug>(CtrlXA-CtrlA)
 silent! nmap <unique>   <C-X> <Plug>(CtrlXA-CtrlX)

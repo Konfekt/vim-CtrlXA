@@ -41,21 +41,8 @@ function! CtrlXA#SingleInc(key) abort
   return a:key . repeat
 endfunction
 
-function! CtrlXA#MultipleInc(key) abort
-  " increment current line as in normal mode to make '< and '> work
-  let cnt = v:count1
-  exe "normal " . cnt . a:key
-  if line("'<") < line("'>")
-    let is_blockmode = (visualmode() ==# "\<C-v>")
-    " increment all subsequent lines
-    exe "'<+1,'>normal! " . (is_blockmode ? col("'<") . "|" : '') . cnt . a:key
-  endif
-
-  silent! call repeat#set(a:key , cnt)
-endfunction
-
 " Adapted from https://github.com/triglav/vim-visual-increment/blob/f34abd2df6dfd29340fd0b14ad651949c8265a7f/plugin/visual-increment.vim
-function! CtrlXA#SuccessiveInc(key) abort
+function! CtrlXA#MultipleInc(key, successive) abort
   let last_line = line('$')
 
   let start_row = line("'<")
@@ -80,7 +67,7 @@ function! CtrlXA#SuccessiveInc(key) abort
       " increment only if some keyword was incremented
       let ct = b:changedtick
       exe "normal " . i . a:key
-      if b:changedtick > ct
+      if a:successive && b:changedtick > ct
         let i += cnt 
       endif
     endif
@@ -97,5 +84,8 @@ function! CtrlXA#SuccessiveInc(key) abort
   endwhile
 
   silent! call repeat#set(
-        \ (a:key is? "\<Plug>(CtrlXA-CtrlA)" ? "\<Plug>(CtrlXA-gCtrlA)" : "\<Plug>(CtrlXA-gCtrlX)"), cnt)
+        \ (a:succesive ? 
+        \ (a:key is? "\<Plug>(CtrlXA-CtrlA)" ? \<Plug>(CtrlXA-gCtrlA)" : "\<Plug>(CtrlXA-gCtrlX)") :
+        \ a:key),
+        \ cnt)
 endfunction
