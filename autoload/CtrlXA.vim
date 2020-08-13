@@ -3,7 +3,7 @@ function! CtrlXA#SingleInc(key) abort
   let repeat = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
   " only jump the cursor back if it would leave it before the end of the new
   " word to allow repeat toggles.
-  let jump_back = ":if col('.')>col(\"'`\")|exe 'normal g``'|endif\<cr>"
+  let jump_back = ":if col('.')>col(\"'`\")|exe 'normal! g``'|endif\<cr>"
 
   let increment = v:count1 * (a:key is? "\<C-A>" ? 1 : -1)
 
@@ -26,7 +26,7 @@ function! CtrlXA#SingleInc(key) abort
       if cword is# current_toggle
         let next_toggle = toggles[(i + increment) % len]
 
-        return "m`viwo\<esc>:\<c-u>call search('" . cword . "','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>" . jump_back . repeat
+        return "m`viwo\<esc>:\<c-u>call search(" . "'\V\<" . escape(cword, '\') . "\>" . "','cz', line('.'))\<cr>" . "\"_ciw" . next_toggle . "\<esc>" . jump_back . repeat
       endif
 
       let i = i+1
@@ -43,7 +43,7 @@ function! CtrlXA#MultipleInc(key) abort
   if line("'<") < line("'>")
     let is_blockmode = (visualmode() ==# "\<C-v>")
     " increment all subsequent lines
-    exe "'<+1,'>normal " . (is_blockmode ? col("'<") . "|" : '') . cnt . a:key
+    exe "'<+1,'>normal! " . (is_blockmode ? col("'<") . "|" : '') . cnt . a:key
   endif
 
   silent! call repeat#set(a:key , cnt)
