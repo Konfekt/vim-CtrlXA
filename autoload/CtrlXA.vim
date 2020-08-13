@@ -1,44 +1,105 @@
 function! CtrlXA#SingleInc(key) abort
-  " use vim-repeat to ensure @. = <C-A/X>
-  let repeat = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
-  " only jump the cursor back if it would leave it before the end of the new
-  " word to allow repeat toggles.
-  let jump_back = ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
-
   let increment = v:count1 * (a:key is? "\<C-A>" ? 1 : -1)
 
-  let cWORD = expand('<cWORD>')
+  " to repeat toggles, only jump the cursor back if before end of new word
+  let jump_back = ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
+  " use vim-repeat to ensure @. = <C-A/X>
+  let repeat = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
+
   let cword = expand('<cword>')
+  let cWORD = expand('<cWORD>')
 
-  for toggles in get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
-    let len = len(toggles)
-    let i = 0
-    while i < len
-      let current_toggle = toggles[i]
+  let toggles_list = get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
+  let line_length = len(getline('.'))
+  let cur_col = getcurpos()[2]
+  let cur_char = getline('.')[cur_col - 1]
+  let min_col = line_length + 1
 
-      if cWORD is# current_toggle || search('\V\C\s' . escape(current_toggle, '\') . '\s', 'czn', line('.')) > 0
-        let next_toggle = toggles[(i + increment) % len]
+  let i = 0
+  while i < len(toggles_list)
+    let toggles = toggles_list[i]
+    let j = 0
+    while j < len(toggles)
+      let toggle = toggles[j]
+      let is_word = s:is_word(toggle)
 
-        return  "m`viWo\<esc>" .
-              \ ":\<c-u>call search(" . "'" . "\\V\\C\\(\\s\\|\\^\\)\\zs" . escape(escape(current_toggle, '\'),'\') . "\\ze\\(\\s\\|\\$\\)" . "'" . ",'cz', line('.'))\<cr>" .
-              \ "\"_ciW" . next_toggle . "\<esc>" .
-              \ jump_back . repeat
+      if (!is_word && (cWORD is# toggle)) || (is_word && (cword is# toggle) && (cur_char =~# '\k'))
+        let min_col = cur_col
+        let min_i   = i
+        let min_j   = j
+
+        break
       endif
 
-      if cword is# current_toggle || search('\V\C\<' . escape(current_toggle, '\') . '\>', 'czn', line('.')) > 0
-        let next_toggle = toggles[(i + increment) % len]
-
-        return  "m`viwo\<esc>" .
-              \ ":\<c-u>call search(" . "'" . "\\V\\C\\<\\zs" . escape(escape(current_toggle, '\'),'\') . "\\ze\\>" . "'" . ",'cz', line('.'))\<cr>" .
-              \ "\"_ciw" . next_toggle . "\<esc>" .
-              \ jump_back . repeat
+      let toggle_regex = '\V\C' . 
+            \ (is_word ?
+            \ '\<\zs' . escape(toggle, '\') . '\ze\>' :
+            \ '\(\s\|\^\)\zs' . escape(toggle, '\') . '\ze\(\s\|\$\)')
+      let col = searchpos(toggle_regex, 'czn', line('.'))[1]
+      if col > 0 && col < min_col
+        let min_col = col
+        let min_i   = i
+        let min_j   = j
       endif
 
-      let i = i+1
+      let j = j+1
     endwhile
-  endfor
 
-  return a:key . repeat
+    let i = i+1
+  endwhile
+
+  let num_regex = '\v<(\d+' .
+        \ (&nrformats =~# '\<bin\>' ? '|0[bB][01]+' : '') .
+        \ (&nrformats =~# '\<hex\>' ? '|0[xX]\x+' : '') .
+        \ (&nrformats =~# '\<octal\>' ? '|0\o+' : '') .
+        \ ')>'
+
+  let old_min_col = min_col
+  if min_col > cur_col 
+    if (cword =~# '\m^' . num_regex . '\m$') && cur_char =~# '\k'
+      let min_col = cur_col
+    else
+      let col = searchpos(num_regex, 'czn', line('.'))[1]
+      if col > 0 && col < min_col
+        let min_col = col
+      endif
+    endif
+  endif
+  if min_col < old_min_col
+    unlet min_i
+    unlet min_j
+  endif
+  unlet old_min_col
+
+  if min_col <= line_length
+    if exists('min_i') && exists('min_j')
+      let toggles = toggles_list[min_i]
+      let len = len(toggles)
+      let current_toggle = toggles[min_j]
+      let next_toggle = toggles[(min_j + increment) % len]
+      let is_word = s:is_word(current_toggle)
+
+      let regex = '\V\C' . 
+            \ (is_word ?
+            \ '\<\zs' . escape(current_toggle, '\') . '\ze\>' :
+            \ '\(\s\|\^\)\zs' . escape(current_toggle, '\') . '\ze\(\s\|\$\)')
+      let cmd = "\"_c" . (is_word ? "iw" : "iW") . next_toggle . "\<esc>"
+    else
+      let regex = num_regex
+      let cmd = v:count . a:key
+    endif
+
+    return  "m`viwo\<esc>" .
+          \ ":\<c-u>call search(" . "'" . regex  . "'" . ",'cz', line('.'))\<cr>" .
+          \ cmd .
+          \ jump_back . repeat
+  else
+    return a:key . repeat
+  endif
+endfunction
+
+function! s:is_word(s) abort
+  return a:s =~# '\v^\k+$'
 endfunction
 
 " Adapted from https://github.com/triglav/vim-visual-increment/blob/f34abd2df6dfd29340fd0b14ad651949c8265a7f/plugin/visual-increment.vim
