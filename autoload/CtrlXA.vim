@@ -23,12 +23,10 @@ function! CtrlXA#SingleInc(key) abort
       let toggle = toggles[j]
       let is_word = s:is_word(toggle)
 
-      if (!is_word && (cWORD is# toggle)) || (is_word && (cword is# toggle) && (cur_char =~# '\k'))
+      if (!is_word && (cWORD is# toggle) && (cur_char =~# '\S')) || (is_word && (cword is# toggle) && (cur_char =~# '\k'))
         let min_col = cur_col
         let min_i   = i
         let min_j   = j
-
-        break
       endif
 
       let toggle_regex = '\V\C' . 
@@ -42,8 +40,15 @@ function! CtrlXA#SingleInc(key) abort
         let min_j   = j
       endif
 
+      if min_col == cur_col
+        break
+      endif
+
       let j = j+1
     endwhile
+    if min_col == cur_col
+      break
+    endif
 
     let i = i+1
   endwhile
@@ -54,7 +59,7 @@ function! CtrlXA#SingleInc(key) abort
         \ (&nrformats =~# '\<octal\>' ? '|0\o+' : '') .
         \ ')>'
 
-  let old_min_col = min_col
+  let word_min_col = min_col
   if min_col > cur_col 
     if (cword =~# '\m^' . num_regex . '\m$') && cur_char =~# '\k'
       let min_col = cur_col
@@ -65,14 +70,9 @@ function! CtrlXA#SingleInc(key) abort
       endif
     endif
   endif
-  if min_col < old_min_col
-    unlet min_i
-    unlet min_j
-  endif
-  unlet old_min_col
 
   if min_col <= line_length
-    if exists('min_i') && exists('min_j')
+    if min_col == word_min_col
       let toggles = toggles_list[min_i]
       let len = len(toggles)
       let current_toggle = toggles[min_j]
