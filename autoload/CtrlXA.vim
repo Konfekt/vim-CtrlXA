@@ -1,8 +1,10 @@
 function! CtrlXA#SingleInc(key) abort
   let increment = v:count1 * (a:key is? "\<C-A>" ? 1 : -1)
 
-  " to repeat toggles, only jump the cursor back if before end of new word
-  let jump_back = ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
+  " ensure cursor at beginning of current word before searching for toggle
+  let jump_to_beginning = "m`viwo\<esc>"
+  " to repeat toggles, only jump the cursor back if before end of toggled word
+  let jump_to_mark = ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
   " use vim-repeat to ensure @. = <C-A/X>
   let repeat = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
 
@@ -89,10 +91,10 @@ function! CtrlXA#SingleInc(key) abort
       let cmd = v:count . a:key
     endif
 
-    return  "m`viwo\<esc>" .
+    return  jump_to_beginning .
           \ ":\<c-u>call search(" . "'" . regex  . "'" . ",'cz', line('.'))\<cr>" .
           \ cmd .
-          \ jump_back . repeat
+          \ jump_to_mark . repeat
   else
     return a:key . repeat
   endif
