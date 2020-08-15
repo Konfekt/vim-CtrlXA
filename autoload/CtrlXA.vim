@@ -148,8 +148,8 @@ function! CtrlXA#MultipleInc(key, successive) abort
   endwhile
 
   silent! call repeat#set(
-        \ (a:succesive ? 
-        \ (a:key is? "\<Plug>(CtrlXA-CtrlA)" ? \<Plug>(CtrlXA-gCtrlA)" : "\<Plug>(CtrlXA-gCtrlX)") :
+        \ (a:successive ? 
+        \ (a:key is? "\<Plug>(CtrlXA-CtrlA)" ? "\<Plug>(CtrlXA-gCtrlA)" : "\<Plug>(CtrlXA-gCtrlX)") :
         \ a:key),
         \ v:count)
 endfunction
