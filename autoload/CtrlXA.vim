@@ -131,6 +131,7 @@ function! CtrlXA#MultipleInc(key, successive) abort
       " increment only if some keyword was incremented
       let ct = b:changedtick
       exe "normal " . cnt . a:key
+      undojoin
       if a:successive && b:changedtick > ct
         let cnt += inc 
       endif
