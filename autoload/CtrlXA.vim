@@ -89,7 +89,7 @@ function! CtrlXA#SingleInc(key) abort
       let cmd = "\"_c" . (is_word ? "iw" : "iW") . next_toggle . "\<esc>"
     else
       let regex = num_regex
-      let cmd = v:count . a:key
+      let cmd = v:count1 . a:key
     endif
 
     return  jump_to_beginning_cmd .
