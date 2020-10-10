@@ -58,6 +58,9 @@ If you prefer the letters `i`, `v` and `I`, `V` to run through the Latin alphabe
 
 ## Global Configuration Options
 
+If you want the cursor to move to the keyword (among `g:CtrlXA_Toggles`) that was changed after hitting a key (mapped to `<Plug>(CtrlXA-CtrlA)` or `<Plug>(CtrlXA-CtrlX)`), then set the global variable `g:CtrlXA_move` to 1.
+By default the cursor only moves to a changed number, as Vim does by default.
+
 If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default list of cycles, then
 
 - either put

@@ -66,6 +66,10 @@ if !exists('g:CtrlXA_Toggles')
       \ ]
 endif
 
+if !exists('g:CtrlXA_move')
+  let g:CtrlXA_move = 0
+endif
+
 augroup CtrlXA
   autocmd!
   autocmd FileType vim if !exists('b:CtrlXA_Toggles') |

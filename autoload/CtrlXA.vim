@@ -4,7 +4,7 @@ function! CtrlXA#SingleInc(key) abort
   " ensure cursor at beginning of current word before searching for toggle
   let jump_to_beginning_cmd = "m`viwo\<esc>"
   " to repeat toggles, only jump the cursor back if before end of toggled word
-  let jump_to_mark_cmd = ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
+  let jump_to_mark_cmd = g:CtrlXA_move ? "" : ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
   " use vim-repeat to ensure @. = <C-A/X>
   let repeat_cmd = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
 
