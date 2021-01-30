@@ -6,7 +6,9 @@ function! CtrlXA#SingleInc(key) abort
   " to repeat toggles, only jump the cursor back if before end of toggled word
   let jump_to_mark_cmd = g:CtrlXA_move ? "" : ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
   " use vim-repeat to ensure @. = <C-A/X>
-  let repeat_cmd = ":silent! call repeat#set('" . a:key . "','" . v:count . "')\<cr>"
+  let repeat_cmd = ':silent! call repeat#set("' .
+        \ (a:key is? "\<C-A>" ? '\<Plug>(CtrlXA-CtrlA)' : '\<Plug>(CtrlXA-CtrlX)') . '","' .
+        \ v:count . "\")\<cr>"
 
   let cword = expand('<cword>')
   let cWORD = expand('<cWORD>')
