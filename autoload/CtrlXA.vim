@@ -36,7 +36,7 @@ function! CtrlXA#SingleInc(key) abort
       let toggle_regex = '\V\C' . 
             \ (is_word ?
             \ '\<\zs' . escape(toggle, '\') . '\ze\>' :
-            \ '\(\s\|\^\)\zs' . escape(toggle, '\') . '\ze\(\s\|\$\)')
+            \ '\%(\s\|\^\)\zs' . escape(toggle, '\') . '\ze\(\s\|\$\)')
       let col = searchpos(toggle_regex, 'czn', line('.'))[1]
       if col > 0 && col < min_col
         let min_col = col
@@ -59,7 +59,7 @@ function! CtrlXA#SingleInc(key) abort
 
   let word_min_col = min_col
   if min_col > cursor_col 
-    let num_regex = '\v<(\d+' .
+    let num_regex = '\v<%(\d+' .
           \ (&nrformats =~# '\<bin\>' ? '|0[bB][01]+' : '') .
           \ (&nrformats =~# '\<hex\>' ? '|0[xX]\x+' : '') .
           \ ')>'
