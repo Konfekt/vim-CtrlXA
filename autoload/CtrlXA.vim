@@ -17,6 +17,8 @@ function! CtrlXA#SingleInc(key) abort
   let line_length = len(getline('.'))
   let cursor_col = getcurpos()[2]
   let cursor_char = getline('.')[cursor_col - 1]
+  let cursor_char_prev = getline('.')[cursor_col-2]
+  let cursor_char_next = getline('.')[cursor_col]
   let min_col = line_length + 1
 
   let i = 0
@@ -65,7 +67,10 @@ function! CtrlXA#SingleInc(key) abort
           \ ')>'
           " \ (&nrformats =~# '\<octal\>' ? '|0\o+' : '') .
 
-    if (cword =~# '\v^' . num_regex . '\v$') && cursor_char =~# '\k'
+    if cword =~# '\v^' . num_regex . '\v$' && cursor_char =~# '\k'
+          \ || cursor_char =~# '\d' || (cursor_char ==# '-') && (cursor_char_next =~# '\d')
+          \ || (&nrformats =~# '\<bin\>') && (cursor_char =~# '[bB]' && cursor_char_next =~# '[01]' && cursor_char_prev ==# '0')
+          \ || &nrformats =~# '\<hex\>' && (cursor_char =~# '[xX]' && cursor_char_next =~# '\x' && cursor_char_prev ==# '0')
       let min_col = cursor_col
     else
       let col = searchpos(num_regex, 'czn', line('.'))[1]
