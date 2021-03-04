@@ -26,6 +26,18 @@ set cpo&vim
 
 if !exists('g:CtrlXA_Toggles')
   let g:CtrlXA_Toggles = [
+      \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z'],
+      \ ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y', 'Z'],
+      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix'],
+      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
+      \ ['alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omikron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega'],
+      \ ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omikron', 'Pi', 'Rho',  'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'],
+      \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'],
+      \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'],
+      \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'],
+      \ ['up', 'down'], ['Up', 'Down'] ,['UP', 'DOWN'],
+      \ ['set', 'unset'],
+      \ ['is', 'isnot'] ,
       \ ['&&', '||'],
       \ ['+', '-'], ['++', '--'],
       \ ['==', '!='] , ['=~', '!~'],
@@ -33,12 +45,6 @@ if !exists('g:CtrlXA_Toggles')
       \ ['verbose', 'debug', 'info', 'warn', 'error', 'fatal'], 
       \ ['remote', 'local', 'base'], ['REMOTE', 'LOCAL', 'BASE'],
       \ ['ours', 'theirs'], ['Ours', 'Theirs'],
-      \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'],
-      \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'],
-      \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'],
-      \ ['up', 'down'], ['Up', 'Down'] ,['UP', 'DOWN'],
-      \ ['set', 'unset'],
-      \ ['is', 'isnot'] ,
       \ ['enable', 'disable'], ['Enable', 'Disable'],
       \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
       \ ['maximum', 'minimum'], ['Maximum', 'Minimum'],
@@ -57,12 +63,6 @@ if !exists('g:CtrlXA_Toggles')
       \ ['fast', 'slow'], ['Fast', 'Slow'],
       \ ['light', 'dark'] , ['Light', 'Dark'] ,
       \ ['good', 'bad'], ['Good', 'Bad'],
-      \ ['alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omikron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega'],
-      \ ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omikron', 'Pi', 'Rho',  'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'],
-      \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z'],
-      \ ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y', 'Z'],
-      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix'],
-      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
       \ ]
 endif
 
