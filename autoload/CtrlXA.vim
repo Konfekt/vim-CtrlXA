@@ -51,7 +51,7 @@ function! CtrlXA#SingleInc(key) abort
         let toggle_regex = '\V\C' . 
               \ (is_word ?
               \ '\<\zs' . escape(toggle, '\') . '\ze\>' :
-              \ '\%(\s\|\^\)\zs' . escape(toggle, '\') . '\ze\(\s\|\$\)')
+              \ '\%(\s\|\^\)\zs' . escape(toggle, '\') . '\ze\%(\s\|\$\)')
         let col = searchpos(toggle_regex, 'czn', line('.'))[1]
         if col > 0 && col < min_col
           let min_col = col
@@ -82,7 +82,7 @@ function! CtrlXA#SingleInc(key) abort
       let toggle_regex = '\V\C' . 
             \ (is_word ?
             \ '\<\zs' . escape(current_toggle, '\') . '\ze\>' :
-            \ '\(\s\|\^\)\zs' . escape(current_toggle, '\') . '\ze\(\s\|\$\)')
+            \ '\%(\s\|\^\)\zs' . escape(current_toggle, '\') . '\ze\%(\s\|\$\)')
       let regex = toggle_regex
       let cmd = "\"_c" . (is_word ? "iw" : "iW") . next_toggle . "\<esc>"
       return  jump_to_beginning_cmd .
