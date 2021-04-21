@@ -128,6 +128,11 @@ When there are already default cycles for a file type, say for `TeX`, replace th
 
 to the file `~/.vim/after/ftplugin/tex.vim` on Linux (respectively `%USERPROFILE%\vimfiles\after\ftplugin\tex.vim` on Microsoft Windows).
 
+The buffer-local variable `b:CtrlXA_iskeyword` can be used instead of
+`&iskeyword` to detect keywords; useful if a toggle keyword is nested inside
+another keyword (as defined by `&iskeyword`). For example, the keywords `max`
+and `x` in `max_x`.
+
 # Related Plug-ins
 
 This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) by adding to your `.vimrc` the lines

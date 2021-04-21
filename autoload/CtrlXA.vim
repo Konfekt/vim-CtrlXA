@@ -10,6 +10,11 @@ function! CtrlXA#SingleInc(key) abort
         \ (a:key is? "\<C-A>" ? '\<Plug>(CtrlXA-CtrlA)' : '\<Plug>(CtrlXA-CtrlX)') . '","' .
         \ v:count . "\")\<cr>"
 
+  if exists('b:CtrlXA_iskeyword')
+    let l:iskeyword = &l:iskeyword
+    let &l:iskeyword = b:CtrlXA_iskeyword  
+  endif
+
   let cword = expand('<cword>')
   let cWORD = expand('<cWORD>')
 
@@ -93,6 +98,10 @@ function! CtrlXA#SingleInc(key) abort
       let cmd = a:key
       return cmd . repeat_cmd
     endif
+  endif
+
+  if exists('l:iskeyword')
+    let &l:iskeyword = l:iskeyword
   endif
 endfunction
 
