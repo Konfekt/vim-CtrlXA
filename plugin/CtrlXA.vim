@@ -24,6 +24,10 @@ let s:keepcpo         = &cpo
 set cpo&vim
 " ------------------------------------------------------------------------------
 
+if !exists('g:CtrlXA_iskeyword')
+    let g:CtrlXA_iskeyword = &l:iskeyword
+endif
+
 if !exists('g:CtrlXA_Toggles')
   let g:CtrlXA_Toggles = [
       \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z'],

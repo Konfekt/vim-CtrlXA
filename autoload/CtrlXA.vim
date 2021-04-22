@@ -11,8 +11,9 @@ function! CtrlXA#SingleInc(key) abort
         \ v:count . "\")\<cr>"
 
   if exists('b:CtrlXA_iskeyword')
-    let l:iskeyword = &l:iskeyword
-    let &l:iskeyword = b:CtrlXA_iskeyword  
+    let &l:iskeyword = b:CtrlXA_iskeyword
+  else
+    let &l:iskeyword = g:CtrlXA_iskeyword
   endif
 
   let cword = expand('<cword>')
