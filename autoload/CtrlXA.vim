@@ -10,11 +10,9 @@ function! CtrlXA#SingleInc(key) abort
         \ (a:key is? "\<C-A>" ? '\<Plug>(CtrlXA-CtrlA)' : '\<Plug>(CtrlXA-CtrlX)') . '","' .
         \ v:count . "\")\<cr>"
 
-  if exists('b:CtrlXA_iskeyword')
-    let &l:iskeyword = b:CtrlXA_iskeyword
-  else
-    let &l:iskeyword = g:CtrlXA_iskeyword
-  endif
+  " try set &iskeyword
+  let  l:iskeyword  = &l:iskeyword
+  let &l:iskeyword = get(b:, 'CtrlXA_iskeyword', g:CtrlXA_iskeyword)
 
   let cword = expand('<cword>')
   let cWORD = expand('<cWORD>')
@@ -101,6 +99,7 @@ function! CtrlXA#SingleInc(key) abort
     endif
   endif
 
+  " catch restore &iskeyword
   if exists('l:iskeyword')
     let &l:iskeyword = l:iskeyword
   endif

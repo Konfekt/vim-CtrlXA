@@ -25,7 +25,7 @@ set cpo&vim
 " ------------------------------------------------------------------------------
 
 if !exists('g:CtrlXA_iskeyword')
-    let g:CtrlXA_iskeyword = &l:iskeyword
+    let g:CtrlXA_iskeyword = &g:iskeyword
 endif
 
 if !exists('g:CtrlXA_Toggles')
