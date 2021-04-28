@@ -146,7 +146,8 @@ By default the cursor only moves to a changed number, as Vim does by default.
 3. FAQ ~
 
 Q: Does this plugin integrate well with Tim Pope's vim-speeddating?
-A: Yes, by adding to your `vimrc` the lines
+A: Yes, as long as the standard mappings to Ctrl-X/A are used, by adding to
+   your `vimrc` the lines
 
 >
   nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
