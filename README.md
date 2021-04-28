@@ -84,7 +84,11 @@ If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default l
     augroup END
     ```
 
-Keywords are separated by all non-keyword characters. Keyword characters are determined by the global variable `g:CtrlXA_iskeyword`. By default, this variable takes the same value as `:h iskeyword`, so default keywords in CtrlXA are the same as Vim keywords. To customize, add or remove characters from `g:CtrlXA_iskeyword`. For example, remove the underscore `_` to toggle `max` and `x` in `max_x`.
+Keywords are separated by all non-keyword characters.
+Keyword characters are determined by the global variable `g:CtrlXA_iskeyword`.
+By default, this variable takes the same value as `&g:iskeyword`, see `:help iskeyword`, so keywords as detected by CtrlXA are the same as Vim's default keyword.
+To customize, add or remove characters from `g:CtrlXA_iskeyword`.
+For example, remove the underscore `_` to toggle `max` and `x` in `max_x`.
 
 ## Buffer-Local Configuration Options
 
@@ -130,7 +134,9 @@ When there are already default cycles for a file type, say for `TeX`, replace th
 
 to the file `~/.vim/after/ftplugin/tex.vim` on Linux (respectively `%USERPROFILE%\vimfiles\after\ftplugin\tex.vim` on Microsoft Windows).
 
-The buffer-local variable `b:CtrlXA_iskeyword` can be used instead of the global `g:CtrlXA_iskeyword` to separate keywords. Useful to define keywords based on filetype. For example, set `b:CtrlXA_iskeyword` in `~/.vim/ftplugin/python.vim` to define keywords in Python.
+The buffer-local variable `b:CtrlXA_iskeyword` can be used instead of the global `g:CtrlXA_iskeyword` to separate keywords.
+Useful to define keywords based on file type.
+For example, set `b:CtrlXA_iskeyword` in `~/.vim/ftplugin/python.vim` to define keywords in Python.
 
 # Related Plug-ins
 
