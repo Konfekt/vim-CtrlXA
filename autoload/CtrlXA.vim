@@ -11,7 +11,7 @@ function! CtrlXA#SingleInc(key) abort
         \ v:count . "\")\<cr>"
 
   " try set &iskeyword
-  let  l:iskeyword  = &l:iskeyword
+  let  b:CtrlXA_waskeyword = &l:iskeyword
   let &l:iskeyword = get(b:, 'CtrlXA_iskeyword', g:CtrlXA_iskeyword)
 
   let cword = expand('<cword>')
@@ -89,6 +89,8 @@ function! CtrlXA#SingleInc(key) abort
             \ '\%(\s\|\^\)\zs' . escape(current_toggle, '\') . '\ze\%(\s\|\$\)')
       let regex = toggle_regex
       let cmd = "\"_c" . (is_word ? "iw" : "iW") . next_toggle . "\<esc>"
+      " catch set &iskeyword
+      let cmd = cmd . ":\<c-u>let &l:iskeyword=b:CtrlXA_waskeyword | unlet b:CtrlXA_waskeyword\<cr>"
       return  jump_to_beginning_cmd .
           \ ":\<c-u>call search(" . "'" . regex  . "'" . ",'cz', line('.'))\<cr>" .
           \ cmd .
@@ -97,11 +99,6 @@ function! CtrlXA#SingleInc(key) abort
       let cmd = a:key
       return cmd . repeat_cmd
     endif
-  endif
-
-  " catch restore &iskeyword
-  if exists('l:iskeyword')
-    let &l:iskeyword = l:iskeyword
   endif
 endfunction
 
