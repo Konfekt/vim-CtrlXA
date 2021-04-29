@@ -140,7 +140,7 @@ For example, set `b:CtrlXA_iskeyword` in `~/.vim/ftplugin/python.vim` to define 
 
 # Related Plug-ins
 
-This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) (commands mapped to `<Ctrl-X/A>`) by adding to your `vimrc` the lines
+This plugin integrates with Tim Pope's [vim-speeddating](https://github.com/tpope/vim-speeddating) by adding to your `.vimrc` the lines
 
 ```vim
 nmap <Plug>SpeedDatingFallbackUp   <Plug>(CtrlXA-CtrlA)
