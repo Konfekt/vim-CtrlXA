@@ -31,7 +31,7 @@ function! CtrlXA#SingleInc(key) abort
         \ || cursor_char =~# '\d' || (cursor_char ==# '-') && (cursor_char_next =~# '\d')
         \ || (&nrformats =~# '\<bin\>') && (cursor_char =~# '[bB]' && cursor_char_next =~# '[01]' && cursor_char_prev ==# '0')
         \ || &nrformats =~# '\<hex\>' && (cursor_char =~# '[xX]' && cursor_char_next =~# '\x' && cursor_char_prev ==# '0')
-    let cmd = a:key
+    let cmd = a:key . ":\<c-u>let &l:iskeyword=b:CtrlXA_waskeyword | unlet b:CtrlXA_waskeyword\<cr>"
     return cmd . repeat_cmd
   else
     let line_length = len(getline('.'))
