@@ -13,6 +13,7 @@ function! CtrlXA#SingleInc(key) abort
   " try set &iskeyword
   let  b:CtrlXA_waskeyword = &l:iskeyword
   let &l:iskeyword = get(b:, 'CtrlXA_iskeyword', g:CtrlXA_iskeyword)
+  let waskeyword_cmd = ":\<c-u>let &l:iskeyword=b:CtrlXA_waskeyword | unlet b:CtrlXA_waskeyword\<cr>"
 
   let cword = expand('<cword>')
   let cWORD = expand('<cWORD>')
@@ -32,6 +33,8 @@ function! CtrlXA#SingleInc(key) abort
         \ || (&nrformats =~# '\<bin\>') && (cursor_char =~# '[bB]' && cursor_char_next =~# '[01]' && cursor_char_prev ==# '0')
         \ || &nrformats =~# '\<hex\>' && (cursor_char =~# '[xX]' && cursor_char_next =~# '\x' && cursor_char_prev ==# '0')
     let cmd = a:key
+    " catch set &iskeyword
+    let cmd = cmd . waskeyword_cmd
     return cmd . repeat_cmd
   else
     let line_length = len(getline('.'))
@@ -90,13 +93,15 @@ function! CtrlXA#SingleInc(key) abort
       let regex = toggle_regex
       let cmd = "\"_c" . (is_word ? "iw" : "iW") . next_toggle . "\<esc>"
       " catch set &iskeyword
-      let cmd = cmd . ":\<c-u>let &l:iskeyword=b:CtrlXA_waskeyword | unlet b:CtrlXA_waskeyword\<cr>"
+      let cmd = cmd . waskeyword_cmd
       return  jump_to_beginning_cmd .
           \ ":\<c-u>call search(" . "'" . regex  . "'" . ",'cz', line('.'))\<cr>" .
           \ cmd .
           \ jump_to_mark_cmd . repeat_cmd
     else
       let cmd = a:key
+      " catch set &iskeyword
+      let cmd = cmd . waskeyword_cmd
       return cmd . repeat_cmd
     endif
   endif
