@@ -88,7 +88,7 @@ Keywords are separated by all non-keyword characters.
 Keyword characters are determined by the global variable `g:CtrlXA_iskeyword`.
 By default, this variable takes the same value as `&g:iskeyword`, see `:help iskeyword`, so keywords as detected by CtrlXA are the same as Vim's default keyword.
 To customize, add or remove characters from `g:CtrlXA_iskeyword`.
-For example, remove the underscore `_` to toggle `max` and `x` in `max_x`.
+For example, the underscore `_` is removed from `g:CtrlXA_iskeyword` by default to toggle `max` and `x` in `max_x`.
 
 ## Buffer-Local Configuration Options
 

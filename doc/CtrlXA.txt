@@ -91,10 +91,10 @@ default list of cycles, then
     augroup END
 <
 
-The global variable *g:CtrlXA_iskeyword* can be used instead of
-`&g:iskeyword` to detect keywords; useful if a toggle keyword is nested inside
-another keyword (as defined by `&iskeyword`). For example, the keywords 'max'
-and 'x' in 'max_x'.
+The global variable *g:CtrlXA_iskeyword* can be used instead of `&g:iskeyword`
+to detect keywords; useful if a toggle keyword is nested inside another keyword
+(as defined by `&iskeyword`). For example, the underscore '_' is removed from
+'g:CtrlXA_iskeyword' by default to toggle 'max' and 'x' in 'max_x'.
 
 ===========================================================================
 2. Buffer-Local Configuration ~

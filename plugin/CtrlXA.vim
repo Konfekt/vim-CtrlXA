@@ -25,7 +25,7 @@ set cpo&vim
 " ------------------------------------------------------------------------------
 
 if !exists('g:CtrlXA_iskeyword')
-    let g:CtrlXA_iskeyword = &g:iskeyword
+    let g:CtrlXA_iskeyword = substitute(&g:iskeyword, '\v%(_,|_,)', '', '')
 endif
 
 if !exists('g:CtrlXA_Toggles')
@@ -51,6 +51,7 @@ if !exists('g:CtrlXA_Toggles')
       \ ['ours', 'theirs'], ['Ours', 'Theirs'],
       \ ['enable', 'disable'], ['Enable', 'Disable'],
       \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
+      \ ['max', 'min'], ['Max', 'Min'],
       \ ['maximum', 'minimum'], ['Maximum', 'Minimum'],
       \ ['maximal', 'minimal'], ['Maximal', 'Minimal'],
       \ ['maximize', 'minimize'], ['Maximize', 'Minimize'],
