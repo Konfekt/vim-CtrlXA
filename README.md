@@ -36,6 +36,7 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ['ours', 'theirs'], ['Ours', 'Theirs'],
       \ ['enable', 'disable'], ['Enable', 'Disable'],
       \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
+      \ ['max', 'min'], ['Max', 'Min'],
       \ ['maximum', 'minimum'], ['Maximum', 'Minimum'],
       \ ['maximal', 'minimal'], ['Maximal', 'Minimal'],
       \ ['maximize', 'minimize'], ['Maximize', 'Minimize'],
