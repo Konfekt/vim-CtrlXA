@@ -56,7 +56,7 @@ These keywords are configurable by the variable `g:CtrlXA_Toggles` which default
       \ ]
 ```
 
-If you prefer the letters `i`, `v` and `I`, `V` to run through the Latin alphabet instead of the Roman numerals, move these letters from the last pair of arrays two the penultimate one.
+If you prefer the letters `i`, `v` and `I`, `V` to run through the Latin alphabet instead of the Roman numerals, move these letters from the pair of arrays containing the roman numerals to that containing the Latin alphabet.
 
 ## Global Configuration Options
 

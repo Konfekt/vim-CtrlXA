@@ -67,8 +67,8 @@ The keywords cycles are configurable by the global variable
       \ ]
 <
 If you prefer 'i', 'v' and 'I', 'V' to run through the letters of the Latin
-alphabet instead of the Roman numerals, move them above from the last pair of
-arrays two the penultimate one.
+alphabet instead of the Roman numerals, move these letters from the pair of
+arrays containing the roman numerals to that containing the Latin alphabet.
 
 If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the
 default list of cycles, then
