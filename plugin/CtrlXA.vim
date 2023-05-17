@@ -40,6 +40,7 @@ if !exists('g:CtrlXA_Toggles')
       \ ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
       \ ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'],
       \ ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth', 'Eleventh', 'Twelfth'],
+      \ ['en', 'es', 'fr', 'pt', 'it', 'ro', 'de', 'nl', 'ru', 'pl'],
       \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'],
       \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'],
       \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'],
