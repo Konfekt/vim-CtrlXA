@@ -87,7 +87,7 @@ When there are already default cycles for a file type, say for `TeX`, replace th
 ```vim
     \ let b:CtrlXA_Toggles = [
     \ ['final', 'draft'],
-    \ ] + b:CtrlXA_Toggles
+                \ ] + get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
 ```
 
 to the file `~/.vim/after/ftplugin/tex.vim` on Linux (respectively `%USERPROFILE%\vimfiles\after\ftplugin\tex.vim` on Microsoft Windows).

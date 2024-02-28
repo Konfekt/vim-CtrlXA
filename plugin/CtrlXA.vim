@@ -183,20 +183,6 @@ endif
 
 augroup CtrlXA
     autocmd!
-    autocmd FileType vim if !exists('b:CtrlXA_Toggles') |
-                \ let b:CtrlXA_Toggles = [
-                \ ['if', 'else', 'elseif', 'endif'],
-                \ ] + g:CtrlXA_Toggles | endif
-    autocmd FileType sh if !exists('b:CtrlXA_Toggles') |
-                \ let b:CtrlXA_Toggles = [
-                \ ['if', 'elif', 'else', 'fi'],
-                \ ] + g:CtrlXA_Toggles | endif
-    autocmd FileType gitrebase if !exists('b:CtrlXA_Toggles') |
-                \ let b:CtrlXA_Toggles = [
-                \ ['pick', 'fixup', 'squash', 'break', 'reword', 'edit', 'drop'],
-                \ ] + g:CtrlXA_Toggles | endif
-    autocmd FileType vim,sh,gitrebase let b:undo_ftplugin = 
-                \ exists('b:undo_ftplugin') ? b:undo_ftplugin . '| unlet b:CtrlXA_Toggles' : 'unlet b:CtrlXA_Toggles'
     " delay detection of &spelllang as long as possible
     autocmd BufNew,BufRead * autocmd BufWinEnter <buffer> if &l:spell | call CtrlXA#localization#init(&spelllang) | endif
     " detect changes of &spelllang
