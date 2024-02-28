@@ -5,14 +5,16 @@
 
 This plug-in makes the key bindings |CTRL-X| and |CTRL-A| (as well as
 |v_g_CTRL-X| and |v_g_CTRL-A|) additionally cycle through keywords in lists
-such as 'true/false', 'yes/no', 'set/unset' or 'yesterday/today/tomorrow'
-or roman numerals 'I', 'II', 'III'... Useful, for example,
+such as 'true/false', 'yes/no', 'yesterday/today/tomorrow', ...
+or roman numerals 'I', 'II', 'III'...
 
-- for toggling settings in a configuration file, or
-- for switching between 'pick', 'squash', 'reword', ... a git commit when
-  rebasing.
+Useful, for example,
 
-Repetition of the last command by hitting |.| in normal mode is made possible
+- for toggling settings in a configuration file,
+- for toggling language modifiers such as 'public/private',
+- for switching between 'pick', 'squash', 'reword', ... a git commit when rebasing, ...
+
+Repetition of the last command by hitting |.| in normal mode is achieved
 by vim-repeat [1] and in visual mode by vim-visualrepeat [2].
 
 [1]: https://github.com/tpope/vim-repeat
@@ -24,10 +26,6 @@ by vim-repeat [1] and in visual mode by vim-visualrepeat [2].
 The keywords cycles are configurable by the global variable
 *g:CtrlXA_Toggles* which is a long list of keyword lists in
 `plugin/ctrlxa.vim`
-
-If you prefer 'i', 'v' and 'I', 'V' to run through the letters of the Latin
-alphabet instead of the Roman numerals, move these letters from the pair of
-arrays containing the roman numerals to that containing the Latin alphabet.
 
 If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the
 default list of cycles, then
@@ -51,10 +49,14 @@ default list of cycles, then
     augroup END
 <
 
-The global variable *g:CtrlXA_iskeyword* can be used instead of `&g:iskeyword`
-to detect keywords; useful if a toggle keyword is nested inside another keyword
-(as defined by `&iskeyword`). For example, the underscore '_' is removed from
-'g:CtrlXA_iskeyword' by default to toggle 'max' and 'x' in 'max_x'.
+If you prefer 'i', 'v' and 'I', 'V' to run through the letters of the Latin
+alphabet instead of the Roman numerals, move these letters from the pair of
+arrays containing the roman numerals to that containing the Latin alphabet.
+
+Keywords consist of the keyword characters determined by the global variable
+`g:CtrlXA_iskeyword`.
+By default, this variable takes the same value as `&g:iskeyword` with the
+exception of the underscore `_` which is removed from `g:CtrlXA_iskeyword`.
 
 ===========================================================================
 2. Buffer-Local Configuration ~
@@ -63,44 +65,25 @@ There is also the buffer-local analogue *b:CtrlXA_Toggles*, which allows for
 file-type specific keyword cycles by, for example
 
 >
-  autocmd FileType vim
-              \ let b:CtrlXA_Toggles = [
-              \ ['if', 'else', 'elseif', 'endif'],
-              \ ] + g:CtrlXA_Toggles
-  autocmd FileType sh
-              \ let b:CtrlXA_Toggles = [
-              \ ['if', 'elif', 'else', 'fi'],
-              \ ] + g:CtrlXA_Toggles
-  autocmd FileType tex
-              \ let b:CtrlXA_Toggles = [
-              \ ['final', 'draft'],
-              \ ] + g:CtrlXA_Toggles
   autocmd FileType gitrebase |
   \ let b:CtrlXA_Toggles = [
     \ ['pick', 'fixup', 'squash', 'break', 'reword', 'edit', 'drop'],
-    \ ] + g:CtrlXA_Toggles
+    \ ] + get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
 <
 
-When there are already default cycles for a file type, say for 'TeX', replace the latter `g:CtrlXA_Toggles` by its buffer-local analogue `b:CtrlXA_Toggles` and add the line
+This will
 
->
-  \ let b:CtrlXA_Toggles = [
-  \ ['final', 'draft'],
-              \ ] + get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
-<
+- include all keyword cycles of the global variable, and
+- add (buffer-)local keyword cycles which have precedence over the global
+  cycles.
 
-to the file '~/.vim/after/ftplugin/tex.vim' on Linux (respectively
-'%USERPROFILE%\vimfiles\after\ftplugin\tex.vim' on Microsoft Windows).
+To add keyword cycles for other file types, add
 
-The buffer-local variable *b:CtrlXA_iskeyword* can be used instead of
-`&l:iskeyword` to detect keywords; useful to define keywords based on file
-type. For example, set `b:CtrlXA_iskeyword` in ~/.vim/ftplugin/python.vim to
-define the characters used to detect keywords in Python.
-
-If you want the cursor to move to the keyword (among `g:CtrlXA_Toggles`) that
-was changed after hitting a key (mapped to `<Plug>(CtrlXA-CtrlA)` or
-`<Plug>(CtrlXA-CtrlX)`), then set the global variable *g:CtrlXA_move* to 1.
-By default the cursor only moves to a changed number, as Vim does by default.
+- either the four lines above to `~/.vimrc` on Linux or MacOS (respectively
+  `%USERPROFILE%\_vimrc` on Microsoft Windows), or
+- the last three lines above to `~/.vim/after/ftplugin/gitrebase.vim` on Linux
+  (respectively `%USERPROFILE%\vimfiles\after\ftplugin\gitrebase.vim` on
+   Microsoft Windows).
 
 ===========================================================================
 3. FAQ ~
