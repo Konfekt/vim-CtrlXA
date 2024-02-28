@@ -22,55 +22,9 @@ by vim-repeat [1] and in visual mode by vim-visualrepeat [2].
 1. Global Configuration ~
 
 The keywords cycles are configurable by the global variable
-*g:CtrlXA_Toggles* which defaults to
+*g:CtrlXA_Toggles* which is a long list of keyword lists in
+`plugin/ctrlxa.vim`
 
->
-  let g:CtrlXA_Toggles = [
-      \ ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z'],
-      \ ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y', 'Z'],
-      \ ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix'],
-      \ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
-      \ ['alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omikron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega'],
-      \ ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omikron', 'Pi', 'Rho',  'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'],
-      \ ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'],
-      \ ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
-      \ ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'],
-      \ ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth', 'Eleventh', 'Twelfth'],
-      \ ['en', 'es', 'fr', 'pt', 'it', 'ro', 'de', 'nl', 'ru', 'pl'],
-      \ ['true', 'false'], ['True', 'False'], ['TRUE', 'FALSE'],
-      \ ['yes', 'no'], ['Yes', 'No'], ['YES', 'NO'],
-      \ ['on', 'off'], ['On', 'Off'], ['ON', 'OFF'],
-      \ ['up', 'down'], ['Up', 'Down'] ,['UP', 'DOWN'],
-      \ ['set', 'unset'],
-      \ ['is', 'isnot'] ,
-      \ ['&&', '||'],
-      \ ['+', '-'], ['++', '--'],
-      \ ['==', '!='] , ['=~', '!~'],
-      \ ['<', '>'], ['<=', '>='], ['>>', '<<'],
-      \ ['verbose', 'debug', 'info', 'warn', 'error', 'fatal'],
-      \ ['remote', 'local', 'base'], ['REMOTE', 'LOCAL', 'BASE'],
-      \ ['ours', 'theirs'], ['Ours', 'Theirs'],
-      \ ['enable', 'disable'], ['Enable', 'Disable'],
-      \ ['enabled', 'disabled'], ['Enabled', 'Disabled'],
-      \ ['max', 'min'], ['Max', 'Min'],
-      \ ['maximum', 'minimum'], ['Maximum', 'Minimum'],
-      \ ['maximal', 'minimal'], ['Maximal', 'Minimal'],
-      \ ['maximize', 'minimize'], ['Maximize', 'Minimize'],
-      \ ['upper', 'lower'], ['Upper', 'Lower'],
-      \ ['top', 'bottom'], ['Top', 'Bottom'],
-      \ ['above', 'below'], ['Above', 'Below'],
-      \ ['forward', 'backward'], ['Forward', 'Backward'],
-      \ ['right', 'middle', 'left'], ['Right', 'Middle', 'Left'],
-      \ ['next', 'previous'], ['Next', 'Previous'],
-      \ ['first', 'last'], ['First', 'Last'],
-      \ ['begin', 'end'], ['Begin', 'End'],
-      \ ['before', 'after'], ['Before', 'After'],
-      \ ['more', 'less'], ['More', 'Less'],
-      \ ['fast', 'slow'], ['Fast', 'Slow'],
-      \ ['light', 'dark'] , ['Light', 'Dark'] ,
-      \ ['good', 'bad'], ['Good', 'Bad'],
-      \ ]
-<
 If you prefer 'i', 'v' and 'I', 'V' to run through the letters of the Latin
 alphabet instead of the Roman numerals, move these letters from the pair of
 arrays containing the roman numerals to that containing the Latin alphabet.
