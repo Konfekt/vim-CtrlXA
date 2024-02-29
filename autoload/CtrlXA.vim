@@ -18,10 +18,14 @@ function! CtrlXA#SingleInc(key) abort
   let cword = expand('<cword>')
   let cWORD = expand('<cWORD>')
 
+  let line = getline('.')
+  let line_length = len(line)
+
   let cursor_col = getcurpos()[2]
-  let cursor_char = getline('.')[cursor_col - 1]
-  let cursor_char_prev = getline('.')[cursor_col-2]
-  let cursor_char_next = getline('.')[cursor_col]
+  let cursor_char = line[cursor_col - 1]
+
+  let cursor_char_prev = cursor_col > 1 ? line[cursor_col-2] : ''
+  let cursor_char_next = cursor_col <= line_length ? line[cursor_col] : ''
 
   let num_regex = '\v<%(\d+' .
         \ (&nrformats =~# '\<bin\>' ? '|0[bB][01]+' : '') .
@@ -37,7 +41,6 @@ function! CtrlXA#SingleInc(key) abort
     let cmd = cmd . waskeyword_cmd
     return cmd . repeat_cmd
   else
-    let line_length = len(getline('.'))
     let min_col = line_length + 1
 
     let toggles_lists = get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
