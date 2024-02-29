@@ -106,52 +106,50 @@ function! s:is_word(s) abort
   return a:s =~# '\v^\k+$'
 endfunction
 
-" Adapted from https://github.com/triglav/vim-visual-increment/blob/f34abd2df6dfd29340fd0b14ad651949c8265a7f/plugin/visual-increment.vim
 function! CtrlXA#MultipleInc(key, successive) abort
-  let last_line = line('$')
+  " Get the start and end lines and columns of the visual selection.
+  let [start_row, end_row] = [line("'<"), line("'>")]
+  let [start_column, end_column] = [col("'<"), col("'>")]
 
-  let start_row = line("'<")
-  let end_row = line("'>")
-  let start_column = col("'<")
-  let end_column = col("'>")
-
-  let is_blockmode = (visualmode() ==# "\<C-v>")
+  " Swap start and end columns if selection is backwards in block mode.
+  let is_blockmode = visualmode() ==# "\<C-v>"
   if is_blockmode && start_column > end_column
-    let start_column =  col("'>")
-    let end_column =  col("'<")
+    let [start_column, end_column] = [end_column, start_column]
   endif
 
-  let inc = v:count1
-  let cnt = inc
-  " start at begin of selection
+  " Move cursor to the first non-blank character of the start line.
   call setpos('.', [0, nextnonblank(start_row), start_column, 0])
+
+  " Loop through the lines in the visual selection.
+  let [inc, cnt] = [v:count1, v:count1]
   while line('.') <= end_row
-    " skip if selection is beyond cursor column
-    let selection = (is_blockmode ? getline('.')[start_column-1 : end_column-1] : getline('.'))
+    " Check if we're not in block mode or if the column is before the end of the line.
     if !is_blockmode || start_column < col('$')
-      " increment only if some keyword was incremented
+      " Store the current change count to detect changes.
       let ct = b:changedtick
-      exe "normal " . cnt . a:key
+      " Execute the increment/decrement command.
+      execute "normal " . cnt . a:key
+      " Join this change with the previous undo block.
       undojoin
+      " If successive incrementing is enabled and a change occurred, increase the count.
       if a:successive && b:changedtick > ct
-        let cnt += inc 
+        let cnt += inc
       endif
     endif
-    " move to the next line
-    let next_line = line('.') + 1
-    if next_line > last_line
+
+    " Find the next non-blank line after the current line.
+    let next_line = nextnonblank(line('.') + 1)
+    " Break the loop if there are no more lines or if we've passed the last line.
+    if next_line == 0 || next_line > line('$')
       break
     endif
-    let next_line = nextnonblank(next_line)
-    if next_line == 0
-      break
-    endif
+    " Move cursor to the first non-blank character of the next line.
     call setpos('.', [0, next_line, start_column, 0])
   endwhile
 
-  silent! call repeat#set(
-        \ (a:successive ? 
+  " Set up the '.' command via vim-repeat plugin
+  let repeat_key = a:successive ?
         \ (a:key is? "\<Plug>(CtrlXA-CtrlA)" ? "\<Plug>(CtrlXA-gCtrlA)" : "\<Plug>(CtrlXA-gCtrlX)") :
-        \ a:key),
-        \ v:count)
+        \ a:key
+  silent! call repeat#set(repeat_key, v:count)
 endfunction
