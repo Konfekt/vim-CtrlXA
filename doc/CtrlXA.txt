@@ -25,7 +25,7 @@ by vim-repeat [1] and in visual mode by vim-visualrepeat [2].
 
 The keywords cycles are configurable by the global variable
 *g:CtrlXA_Toggles* which is a long list of keyword lists in
-`plugin/ctrlxa.vim`
+`plugin/CtrlXA/toggles.vim`
 
 If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the
 default list of cycles, then
