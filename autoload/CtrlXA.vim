@@ -45,8 +45,12 @@ function! CtrlXA#SingleInc(key) abort
     " Search for valid toggles in the current line
     let min_col = line_length + 1
     let toggles_lists = get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
-    for [i, toggles] in items(toggles_lists)
-      for [j, toggle] in items(toggles)
+    " for [i, toggles] in items(toggles_lists)
+    let i = 0
+    for toggles in toggles_lists
+      " for [j, toggle] in items(toggles)
+      let j = 0
+      for toggle in toggles
         let is_word = s:is_word(toggle)
 
         if  (!is_word && (cWORD is# toggle) && (cursor_char =~# '\S')) ||
@@ -67,10 +71,12 @@ function! CtrlXA#SingleInc(key) abort
         if min_col == cursor_col
           break
         endif
+        let j += 1
       endfor
       if min_col == cursor_col
         break
       endif
+      let i += 1
     endfor
 
     " If a toggle is found, replace it
