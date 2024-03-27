@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 let b:CtrlXA_Toggles =  get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles) + [
       \ ['zero', 'uno', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove', 'dieci', 'undici', 'dodici'],
       \ ['Zero', 'Uno', 'Due', 'Tre', 'Quattro', 'Cinque', 'Sei', 'Sette', 'Otto', 'Nove', 'Dieci', 'Undici', 'Dodici'],
