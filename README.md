@@ -46,8 +46,10 @@ If you prefer `i`, `v` and `I`, `V` to run through the letters of the Latin
 alphabet instead of the Roman numerals, move these letters from the pair of
 arrays containing the roman numerals to that containing the Latin alphabet.
 
-There are also localized keyword cycle lists for common (spell) languages;
-these can be disabled by `let g:CtrlXA_localization = 0`.
+There are also localized keyword cycle lists for common (spell) languages.
+Disable them by adding `let g:CtrlXA_localization = 0` to your `Vimrc`.
+To customize them, put a file named after the corresponding (spell) language code, for example, `ro.vim` for Romanian into `$VIMFILES/autoload/CtrlXA/langs/`
+(where `$VIMFILES` is `~/.vim` on Linux and Mac OS and `%USERPROFILE%/vimfiles` on Microsoft Windows, see `:help vimfiles`).
 
 # Buffer-Local Setup
 

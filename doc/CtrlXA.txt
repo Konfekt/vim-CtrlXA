@@ -58,8 +58,12 @@ Keywords consist of the keyword characters determined by the global variable
 By default, this variable takes the same value as `&g:iskeyword` with the
 exception of the underscore `_` which is removed from `g:CtrlXA_iskeyword`.
 
-There are also localized keyword cycle lists for common (spell) languages;
-these can be disabled by `let g:CtrlXA_localization = 0`.
+There are also localized keyword cycle lists for common (spell) languages.
+Disable them by adding `let g:CtrlXA_localization = 0` to your `vimrc`.
+To customize them, put a file named after the corresponding (spell) language
+code, say `ro.vim` for Romanian, into `$VIMFILES/autoload/CtrlXA/langs/`
+(where `$VIMFILES` is `~/.vim` on Linux and Mac OS and
+ `%USERPROFILE%/vimfiles` on Microsoft Windows, see `vimfiles`).
 
 ===========================================================================
 2. Buffer-Local Configuration ~
