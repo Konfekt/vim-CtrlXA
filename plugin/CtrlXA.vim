@@ -32,18 +32,24 @@ if !exists('g:CtrlXA_move')
     let g:CtrlXA_move = 0
 endif
 
-augroup CtrlXA
-    autocmd!
-    " delay detection of &spelllang as long as possible
-    autocmd BufNew,BufRead * autocmd BufWinEnter <buffer> if &l:spell | call CtrlXA#localization#init(&spelllang) | endif
-    " detect changes of &spelllang
-    if exists('##OptionSet')
-        autocmd OptionSet spell     if v:option_new && !v:option_old | call CtrlXA#localization#init(&spelllang) | endif
-        " &spelllang was already detected once on opening the buffer
-        autocmd OptionSet spelllang if v:option_new !=# v:option_old | call CtrlXA#localization#init(&spelllang) | endif
-    endif
-augroup end
-silent doautoall CtrlXA BufNew,BufRead
+if !exists('g:CtrlXA_localization')
+    let g:CtrlXA_localization = 1
+endif
+
+if g:CtrlXA_localization
+    augroup CtrlXA_Localization
+        autocmd!
+        " delay detection of &spelllang as long as possible
+        autocmd BufNew,BufRead * autocmd BufWinEnter <buffer> if &l:spell | call CtrlXA#localization#init(&spelllang) | endif
+        " detect changes of &spelllang
+        if exists('##OptionSet')
+            autocmd OptionSet spell     if v:option_new && !v:option_old | call CtrlXA#localization#init(&spelllang) | endif
+            " &spelllang was already detected once on opening the buffer
+            autocmd OptionSet spelllang if v:option_new !=# v:option_old && &l:spell | call CtrlXA#localization#init(&spelllang) | endif
+        endif
+    augroup end
+    silent doautoall CtrlXA_Localization BufNew,BufRead
+endif
 
 set nrformats-=alpha
 

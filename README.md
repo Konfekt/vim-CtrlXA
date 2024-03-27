@@ -46,6 +46,9 @@ If you prefer `i`, `v` and `I`, `V` to run through the letters of the Latin
 alphabet instead of the Roman numerals, move these letters from the pair of
 arrays containing the roman numerals to that containing the Latin alphabet.
 
+There are also localized keyword cycle lists for common (spell) languages;
+these can be disabled by `let g:CtrlXA_localization = 0`.
+
 # Buffer-Local Setup
 
 There is also the buffer-local list of keyword cycles `b:CtrlXA_iskeyword`, which allows for file-type specific keyword cycles.
