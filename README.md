@@ -5,6 +5,9 @@ Useful, for example,
 - for toggling language modifiers such as `public/private`,
 - for switching between `pick`, `squash`, `reword`, ... a `git` commit when rebasing, ...
 
+Keyword cycles are provided for common programming and natural languages
+(inspectable in the `ftplugin` respectively `autoload/CtrlXA/langs` folders).
+
 Repetition of the last command by hitting `.` (see `:help .`) is achieved
 
 - in normal mode by [vim-repeat](https://github.com/tpope/vim-repeat), and
