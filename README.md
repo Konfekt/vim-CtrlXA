@@ -33,7 +33,7 @@ If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default l
     ```vim
     augroup VimAfter
         autocmd!
-        autocmd VimEnter let g:CtrlXA_Toggles = [
+        autocmd VimEnter * let g:CtrlXA_Toggles = [
         \ ['sweet', 'bitter'],
         \ ] + g:CtrlXA_Toggles
     augroup END
