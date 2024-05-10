@@ -15,7 +15,7 @@ Repetition of the last command by hitting `.` (see `:help .`) is achieved
 
 # Global Setup
 
-These keywords are configurable by the variable `g:CtrlXA_Toggles` which is a long list of keyword lists in [`plugin/ctrlxa.vim`](https://github.com/Konfekt/vim-CtrlXA/blob/master/plugin/CtrlXA/toggles.vim)
+These keywords are configurable by the variable `g:CtrlXA_Toggles` which is a long list of keyword lists in [`plugin/CtrlXA/toggles.vim`](https://github.com/Konfekt/vim-CtrlXA/blob/master/plugin/CtrlXA/toggles.vim)
 
 If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default list of cycles, then
 
