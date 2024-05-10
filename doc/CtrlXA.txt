@@ -46,7 +46,7 @@ default list of cycles, then
 >
     augroup VimAfter
         autocmd!
-        autocmd VimEnter let g:CtrlXA_Toggles = [
+        autocmd VimEnter * let g:CtrlXA_Toggles = [
         \ ['sweet', 'bitter'],
         \ ] + g:CtrlXA_Toggles
     augroup END
