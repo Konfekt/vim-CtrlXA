@@ -72,6 +72,7 @@ let g:CtrlXA_Toggles = [
   \ ['remote', 'local', 'base'], ['REMOTE', 'LOCAL', 'BASE'],
   \ ['ours', 'theirs'],
   \ ['main', 'master', 'dev'],
+  \ ['development', 'production', 'test'],
   \
   \ ['accept', 'decline'], ['Accept', 'Decline'],
   \ ['add', 'remove'], ['Add', 'Remove'],
