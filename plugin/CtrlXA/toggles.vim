@@ -22,6 +22,9 @@ let g:CtrlXA_Toggles = [
   \ ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
   \ ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'],
   \ ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth', 'Eleventh', 'Twelfth'],
+  \ ['semel', 'bis', 'ter', 'quater', 'quinquies', 'sexies', 'septies', 'octies', 'nonies', 'decies'],
+  \
+  \ ['foo', 'bar', 'baz', 'qux', 'quux', 'corge', 'grault', 'garply', 'waldo', 'fred', 'plugh', 'xyzzy', 'thud'],
   \
   \ ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
   \ ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -69,6 +72,7 @@ let g:CtrlXA_Toggles = [
   \ ['remote', 'local', 'base'], ['REMOTE', 'LOCAL', 'BASE'],
   \ ['ours', 'theirs'],
   \ ['main', 'master', 'dev'],
+  \ ['development', 'production', 'test'],
   \
   \ ['accept', 'decline'], ['Accept', 'Decline'],
   \ ['add', 'remove'], ['Add', 'Remove'],
