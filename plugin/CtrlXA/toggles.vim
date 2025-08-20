@@ -60,14 +60,15 @@ let g:CtrlXA_Toggles = [
   \ ['int', 'float', 'double', 'char', 'string'],
   \ ['Int', 'Float', 'Double', 'Char', 'String'],
   \
-  \ ['in', 'out'], ['In', 'Out'],
+  \ ['in', 'out'], ['In', 'Out'], ['IN', 'OUT'],
   \ ['input', 'output'], ['Input', 'Output'],
   \
   \ ['client', 'server'], ['Client', 'Server'],
   \
-  \ ['success', 'failure'], ['Success', 'Failure'],
+  \ ['success', 'failure'], ['Success', 'Failure'], ['SUCCESS', 'FAILURE'],
   \ ['successful', 'failed'], ['Successful', 'Failed'],
-  \ ['verbose', 'debug', 'info', 'warn', 'error', 'fatal'],
+  \
+  \ ['verbose', 'debug', 'info', 'warn', 'error', 'fatal'], ['Verbose', 'Debug', 'Info', 'Warn', 'Error', 'Fatal'], ['VERBOSE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'],
   \
   \ ['remote', 'local', 'base'], ['REMOTE', 'LOCAL', 'BASE'],
   \ ['ours', 'theirs'],
@@ -96,7 +97,7 @@ let g:CtrlXA_Toggles = [
   \ ['start', 'stop'], ['Start', 'Stop'],
   \ ['win', 'lose'], ['Win', 'Lose'],
   \
-  \ ['max', 'min'], ['Max', 'Min'],
+  \ ['max', 'min'], ['Max', 'Min'], ['MAX', 'MIN'], 
   \ ['maximum', 'minimum'], ['Maximum', 'Minimum'],
   \ ['maximal', 'minimal'], ['Maximal', 'Minimal'],
   \ ['maximize', 'minimize'], ['Maximize', 'Minimize'],
