@@ -117,7 +117,7 @@ let g:CtrlXA_Toggles = [
   \
   \ ['cyan', 'magenta', 'yellow'], ['Cyan', 'Magenta', 'Yellow'],
   \
-  \ ['small', 'medium', 'large'], ['Small', 'Medium', 'Large'],
+  \ ['small', 'large'], ['Small', 'Large'],
   \ ['hot', 'warm', 'cold'], ['Hot', 'Warm', 'Cold'],
   \
   \ ['few', 'many'], ['Few', 'Many'],
@@ -138,7 +138,7 @@ let g:CtrlXA_Toggles = [
   \ ['easy', 'difficult'], ['Easy', 'Difficult'],
   \ ['fast', 'slow'], ['Fast', 'Slow'],
   \ ['gain', 'loss'], ['Gain', 'Loss'],
-  \ ['high', 'low'], ['High', 'Low'],
+  \ ['high', 'medium', 'low'], ['High', 'Medium', 'Low'],
   \ ['internal', 'external'], ['Internal', 'External'],
   \ ['light', 'dark'] , ['Light', 'Dark'] ,
   \ ['major', 'minor'], ['Major', 'Minor'],
