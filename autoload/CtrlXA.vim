@@ -2,15 +2,13 @@ function! CtrlXA#SingleInc(key) abort
   " Determine the increment or decrement (1 for Ctrl-A, -1 for Ctrl-X), and apply any [count]
   let increment = v:count1 * (a:key is? "\<C-A>" ? 1 : -1)
 
-  " Commands to move the cursor to the beginning of the word or to the previous toggle
-  let jump_to_beginning_cmd = "m`viwo\<esc>"
-  let jump_to_mark_cmd = g:CtrlXA_move ? '' : ":if col('.') > col(\"'`\") | exe 'normal! g``' | endif\<cr>"
-
   " Set up the '.' command via vim-repeat plugin
   let repeat_key = a:key is? "\<C-A>" ? '\<Plug>(CtrlXA-CtrlA)' : '\<Plug>(CtrlXA-CtrlX)'
   let repeat_cmd = ':silent! call repeat#set("' . repeat_key . '",' . v:count . "\")\<cr>"
 
-  " Save and temporarily override the 'iskeyword' setting if it's customized
+  " Save and temporarily override the 'iskeyword' setting if it's customized;
+  " first restore it should an earlier change have been interrupted
+  call s:restore_iskeyword()
   let b:CtrlXA_waskeyword = &l:iskeyword
   let &l:iskeyword = get(b:, 'CtrlXA_iskeyword', g:CtrlXA_iskeyword)
   let waskeyword_cmd = ":\<c-u>let &l:iskeyword=b:CtrlXA_waskeyword | unlet b:CtrlXA_waskeyword\<cr>"
@@ -39,7 +37,8 @@ function! CtrlXA#SingleInc(key) abort
         \ || cursor_char =~# '\d' || (cursor_char ==# '-') && (cursor_char_next =~# '\d')
         \ || (&nrformats =~# '\<bin\>') && (cursor_char =~# '[bB]' && cursor_char_next =~# '[01]' && cursor_char_prev ==# '0')
         \ || &nrformats =~# '\<hex\>' && (cursor_char =~# '[xX]' && cursor_char_next =~# '\x' && cursor_char_prev ==# '0')
-    return a:key . waskeyword_cmd . repeat_cmd
+    call s:restore_iskeyword()
+    return a:key . repeat_cmd
   else
     " Search for valid toggles in the current line
     let min_col = line_length + 1
@@ -54,11 +53,13 @@ function! CtrlXA#SingleInc(key) abort
           \ ( is_word && (cword is# toggle) && (cursor_char =~# '\k'))
           let min_col = cursor_col
           let current_index = [i, j]
+          let start_col = searchpos(s:toggle_regex(toggle, is_word), 'bcn', line('.'))[1]
         else
           let col = searchpos(s:toggle_regex(toggle, is_word), 'czn', line('.'))[1]
           if col > 0 && col < min_col
             let min_col = col
             let current_index = [i, j]
+            let start_col = col
           endif
         endif
 
@@ -82,17 +83,27 @@ function! CtrlXA#SingleInc(key) abort
       let next_toggle = toggles[(min_j + increment) % len]
       let is_word = s:is_word(current_toggle)
 
-      " Construct the command to replace the toggle
+      " Jump to the beginning of the toggle, replace it and, unless
+      " g:CtrlXA_move is set, return to the cursor column if it moved past it.
+      " Neither marks nor the last visual selection are touched.
+      let jump_cmd = ":\<c-u>call cursor(0, " . start_col . ")\<cr>"
       let cmd = '"_c' . (is_word ? 'iw' : 'iW') . next_toggle . "\<esc>"
-      " Construct the command to jump to the toggle; string() quotes the regex safely
-      let search_cmd = ":\<c-u>call search(" . string(s:toggle_regex(current_toggle, is_word)) . ", 'cz', line('.'))\<cr>"
-      " Return the toggle command sequence including cleanup and repeat
-      return  jump_to_beginning_cmd . search_cmd . cmd .
-            \ waskeyword_cmd . jump_to_mark_cmd . repeat_cmd
+      let jump_back_cmd = g:CtrlXA_move ? '' :
+            \ ":\<c-u>if col('.') > " . cursor_col . ' | call cursor(0, ' . cursor_col . ") | endif\<cr>"
+      return jump_cmd . cmd . waskeyword_cmd . jump_back_cmd . repeat_cmd
     else
-      " If no toggle found, fall back to Vim's increment/decrement
-      return a:key . waskeyword_cmd . repeat_cmd
+      " If no toggle found, fall back to Vim's increment/decrement, which
+      " does not depend on 'iskeyword' and may fail (and abort the rest)
+      call s:restore_iskeyword()
+      return a:key . repeat_cmd
     endif
+  endif
+endfunction
+
+function! s:restore_iskeyword() abort
+  if exists('b:CtrlXA_waskeyword')
+    let &l:iskeyword = b:CtrlXA_waskeyword
+    unlet b:CtrlXA_waskeyword
   endif
 endfunction
 
