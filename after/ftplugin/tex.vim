@@ -16,7 +16,7 @@ let b:CtrlXA_Toggles = [
                   \ ['newpage', 'clearpage', 'cleardoublepage'],
                   \ ['linebreak', 'nolinebreak',],
                   \ ['pagebreak', 'nopagebreak'],
-                  \ ['Big', 'Big', 'bigg', 'Bigg', 'huge', 'Huge'],
+                  \ ['big', 'Big', 'bigg', 'Bigg', 'huge', 'Huge'],
                   \ ['=', '\neq'],
                   \ ['|', '\nmid'],
                   \ ['mid', 'nmid'],
@@ -57,4 +57,3 @@ let b:CtrlXA_Toggles = [
                   \ ] + get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
 let b:undo_ftplugin =
                   \ exists('b:undo_ftplugin') ? b:undo_ftplugin . '| unlet! b:CtrlXA_Toggles' : 'unlet! b:CtrlXA_Toggles'
-

@@ -1,5 +1,5 @@
 let b:CtrlXA_Toggles = [
-      \ ['void', 'number', 'string', 'boolean', 'string'],
+      \ ['void', 'number', 'string', 'boolean'],
       \ ['static', 'abstract', 'readonly'],
       \ ['for', 'while', 'do'],
       \ ['break', 'continue'],
