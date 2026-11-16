@@ -22,10 +22,11 @@ function! CtrlXA#SingleInc(key) abort
   " Get the current line and the cursor column, as well as surrounding characters
   let line = getline('.')
   let line_length = len(line)
-  let cursor_col = getcurpos()[2]
-  let cursor_char = line[cursor_col - 1]
-  let cursor_char_prev = cursor_col > 1 ? line[cursor_col-2] : ''
-  let cursor_char_next = cursor_col <= line_length ? line[cursor_col] : ''
+  let cursor_col = col('.')
+  " whole (possibly multibyte) characters at, before and after the cursor
+  let cursor_char = matchstr(line, '\%' . cursor_col . 'c.')
+  let cursor_char_prev = matchstr(line, '.\%' . cursor_col . 'c')
+  let cursor_char_next = matchstr(line, '\%>' . cursor_col . 'c.')
 
   " Compile a regex pattern to match numbers, considering binary and hex formats
   let num_regex = '\v<%(\d+' .
@@ -38,17 +39,13 @@ function! CtrlXA#SingleInc(key) abort
         \ || cursor_char =~# '\d' || (cursor_char ==# '-') && (cursor_char_next =~# '\d')
         \ || (&nrformats =~# '\<bin\>') && (cursor_char =~# '[bB]' && cursor_char_next =~# '[01]' && cursor_char_prev ==# '0')
         \ || &nrformats =~# '\<hex\>' && (cursor_char =~# '[xX]' && cursor_char_next =~# '\x' && cursor_char_prev ==# '0')
-    " Construct the increment/decrement command string for repeat
-    let cmd = a:key . waskeyword_cmd . repeat_cmd
-    return cmd
+    return a:key . waskeyword_cmd . repeat_cmd
   else
     " Search for valid toggles in the current line
     let min_col = line_length + 1
     let toggles_lists = get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
-    " for [i, toggles] in items(toggles_lists)
     let i = 0
     for toggles in toggles_lists
-      " for [j, toggle] in items(toggles)
       let j = 0
       for toggle in toggles
         let is_word = s:is_word(toggle)
@@ -58,10 +55,7 @@ function! CtrlXA#SingleInc(key) abort
           let min_col = cursor_col
           let current_index = [i, j]
         else
-          let toggle_regex = '\V\C' . (is_word ?
-                \ '\<\zs' . escape(toggle, '\') . '\ze\>' :
-                \ '\%(\s\|\^\)\zs' . escape(toggle, '\') . '\ze\%(\s\|\$\)')
-          let col = searchpos(toggle_regex, 'czn', line('.'))[1]
+          let col = searchpos(s:toggle_regex(toggle, is_word), 'czn', line('.'))[1]
           if col > 0 && col < min_col
             let min_col = col
             let current_index = [i, j]
@@ -89,21 +83,15 @@ function! CtrlXA#SingleInc(key) abort
       let is_word = s:is_word(current_toggle)
 
       " Construct the command to replace the toggle
-      let cmd = "\"_c" . (is_word ? "iw" : "iW") . next_toggle . "\<esc>"
-      " Build a regex pattern for toggling a word
-      let toggle_regex = '\V\C' .
-            \ (is_word ?
-            \ '\<\zs' . escape(current_toggle, '\') . '\ze\>' :
-            \ '\%(\s\|\^\)\zs' . escape(current_toggle, '\') . '\ze\%(\s\|\$\)')
-      " Construct the search command using the built regex
-      let search_cmd = ":\<c-u>call search(" . "'" . toggle_regex . "'" . ",'cz', line('.'))\<cr>"
+      let cmd = '"_c' . (is_word ? 'iw' : 'iW') . next_toggle . "\<esc>"
+      " Construct the command to jump to the toggle; string() quotes the regex safely
+      let search_cmd = ":\<c-u>call search(" . string(s:toggle_regex(current_toggle, is_word)) . ", 'cz', line('.'))\<cr>"
       " Return the toggle command sequence including cleanup and repeat
       return  jump_to_beginning_cmd . search_cmd . cmd .
             \ waskeyword_cmd . jump_to_mark_cmd . repeat_cmd
     else
-      " If no toggle found, simply increment/decrement the character under cursor
-      let cmd = a:key . waskeyword_cmd . repeat_cmd
-      return cmd
+      " If no toggle found, fall back to Vim's increment/decrement
+      return a:key . waskeyword_cmd . repeat_cmd
     endif
   endif
 endfunction
@@ -112,45 +100,52 @@ function! s:is_word(s) abort
   return a:s =~# '\v^\k+$'
 endfunction
 
+" Match a word toggle as a whole keyword and any other toggle as a whole WORD
+function! s:toggle_regex(toggle, is_word) abort
+  let toggle = escape(a:toggle, '\')
+  return '\V\C' . (a:is_word ?
+        \ '\<\zs' . toggle . '\ze\>' :
+        \ '\%(\s\|\^\)\zs' . toggle . '\ze\%(\s\|\$\)')
+endfunction
+
 function! CtrlXA#MultipleInc(key, successive) abort
   " Get the start and end lines and columns of the visual selection.
   let [start_row, end_row] = [line("'<"), line("'>")]
   let [start_column, end_column] = [col("'<"), col("'>")]
 
   " Swap start and end columns if selection is backwards in block mode.
-  let is_blockmode = visualmode() ==# "\<C-v>"
+  let mode = visualmode()
+  let is_blockmode = mode ==# "\<C-v>"
   if is_blockmode && start_column > end_column
     let [start_column, end_column] = [end_column, start_column]
   endif
 
-  " Move cursor to the first non-blank character of the start line.
-  call setpos('.', [0, nextnonblank(start_row), start_column, 0])
-
-  " Loop through the lines in the visual selection.
+  " Loop through the non-blank lines in the visual selection.
   let [inc, cnt] = [v:count1, v:count1]
-  while line('.') <= end_row
-    " Check if we're not in block mode or if the column is before the end of the line.
-    if !is_blockmode || start_column < col('$')
-      " Store the current change count to detect changes.
+  let tick = b:changedtick
+  let column = start_column
+  let lnum = nextnonblank(start_row)
+  while lnum > 0 && lnum <= end_row
+    call cursor(lnum, column)
+    " In block mode, skip lines that end before the block.
+    if !is_blockmode || column < col('$')
+      " Join this change with the previous ones into a single undo block.
+      if b:changedtick != tick
+        silent! undojoin
+      endif
       let ct = b:changedtick
       " Execute the increment/decrement command.
-      execute "normal " . cnt . a:key
-      " Join this change with the previous undo block.
-      undojoin
+      execute 'normal ' . cnt . a:key
       " If successive incrementing is enabled and a change occurred, increase the count.
       if a:successive && b:changedtick > ct
         let cnt += inc
       endif
     endif
-
-    " Find the next non-blank line after the current line.
-    let next_line = nextnonblank(line('.') + 1)
-    " Break the loop if there are no more lines or if we've passed the last line.
-    if next_line == 0 || next_line > line('$')
-      break
+    " As for Vim's v_CTRL-A, a characterwise selection covers all of the following lines.
+    if mode ==# 'v'
+      let column = 1
     endif
-    " Move cursor to the first non-blank character of the next line.
-    call setpos('.', [0, next_line, start_column, 0])
+    let lnum = nextnonblank(lnum + 1)
   endwhile
 
   " Set up the '.' command via vim-repeat plugin
