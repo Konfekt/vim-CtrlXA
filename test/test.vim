@@ -209,6 +209,58 @@ function! Test_localization_autocmd_not_duplicated() abort
   call assert_equal(1, len(lines))
 endfunction
 
+function! Test_iskeyword_restored_without_toggle() abort
+  " Vim's CTRL-A fails without a number, which aborts the rest of the mapping
+  call s:buf(['qqq zzzq'])
+  setlocal iskeyword=@,48-57,_,-
+  call s:keys("\<C-A>")
+  call s:keys("\<C-X>")
+  call assert_equal('@,48-57,_,-', &l:iskeyword)
+  call assert_false(exists('b:CtrlXA_waskeyword'))
+  call s:keys("VG\<C-A>")
+  call assert_equal('@,48-57,_,-', &l:iskeyword)
+endfunction
+
+function! Test_visual_marks_kept() abort
+  call s:buf(['true 1', 'yes'])
+  call s:keys("Vj\<Esc>gg\<C-A>")
+  call assert_equal('false 1', getline(1))
+  call assert_equal([1, 2], [line("'<"), line("'>")])
+  " gv reselects the lines after a visual CTRL-A on toggles
+  call s:keys("gvg\<C-A>gvd")
+  call assert_equal([''], getline(1, '$'))
+endfunction
+
+function! Test_cursor_position() abort
+  call s:buf(['val = true'])
+  call s:keys("\<C-A>")
+  call assert_equal(['val = false', 1], [getline(1), col('.')])
+  call s:buf(['monday'])
+  call cursor(1, 4)
+  call s:keys("\<C-A>")
+  call assert_equal(['tuesday', 4], [getline(1), col('.')])
+  call s:buf(['false'])
+  call cursor(1, 5)
+  call s:keys("\<C-A>")
+  call assert_equal(['true', 4], [getline(1), col('.')])
+  let g:CtrlXA_move = 1
+  try
+    call s:buf(['val = true y'])
+    call s:keys("\<C-A>")
+    call assert_equal(['val = false y', 11], [getline(1), col('.')])
+  finally
+    let g:CtrlXA_move = 0
+  endtry
+endfunction
+
+function! Test_nonword_toggle_after_cursor() abort
+  call s:buf(['val \[ y \]'])
+  setlocal filetype=tex
+  call s:keys("\<C-A>")
+  call assert_equal('val \begin{equation} y \]', getline(1))
+  set filetype=
+endfunction
+
 " Runner
 let s:failed = 0
 let s:out = []
