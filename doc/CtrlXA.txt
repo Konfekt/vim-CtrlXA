@@ -57,25 +57,32 @@ alphabet instead of the Roman numerals, move these letters from the pair of
 arrays containing the roman numerals to that containing the Latin alphabet.
 
 Keywords consist of the keyword characters determined by the global variable
-`g:CtrlXA_iskeyword`.
+*g:CtrlXA_iskeyword* or its buffer-local analogue *b:CtrlXA_iskeyword* .
 By default, this variable takes the same value as `&g:iskeyword` with the
 exception of the underscore `_` which is removed from `g:CtrlXA_iskeyword`.
 
+By default, the cursor only moves to a changed number, as Vim does.
+To move the cursor to a changed keyword as well, set *g:CtrlXA_move* to 1.
+
 There are also localized keyword cycle lists for common (spell) languages.
+They are added to the buffer-local cycles of each buffer with 'spell' set,
+for every language in 'spelllang' other than English.
 Disable them by adding `let g:CtrlXA_localization = 0` to your `vimrc`.
+                                                      *g:CtrlXA_localization*
 To customize them, put a file named after the corresponding (spell) language
 code, say `ro.vim` for Romanian, into `$VIMFILES/autoload/CtrlXA/langs/`
 (where `$VIMFILES` is `~/.vim` on Linux and Mac OS and
- `%USERPROFILE%/vimfiles` on Microsoft Windows, see `vimfiles`).
+ `%USERPROFILE%/vimfiles` on Microsoft Windows, see |vimfiles|).
+All such files in 'runtimepath' are sourced, so it adds to the bundled one.
 
 ===========================================================================
 2. Buffer-Local Configuration ~
 
-There is also the buffer-local analogue *b:CtrlXA_Toggles*, which allows for
+There is also the buffer-local analogue *b:CtrlXA_Toggles* which allows for
 file-type specific keyword cycles by, for example
 
 >
-  autocmd FileType gitrebase |
+  autocmd FileType gitrebase
   \ let b:CtrlXA_Toggles = [
     \ ['pick', 'fixup', 'squash', 'break', 'reword', 'edit', 'drop'],
     \ ] + get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles)
@@ -95,8 +102,27 @@ To add keyword cycles for other file types, add
   (respectively `%USERPROFILE%\vimfiles\after\ftplugin\gitrebase.vim` on
    Microsoft Windows).
 
+The file-type specific keyword cycles shipped with this plug-in are in its
+`after/ftplugin` folder, so that they are added after Vim's own file-type
+plug-ins.
+Vim's own gitrebase file-type plug-in maps CTRL-A and CTRL-X to cycle
+through the rebase commands; to use this plug-in's mappings instead, set
+`g:no_gitrebase_maps` to 1 in your `vimrc`.
+
 ===========================================================================
-3. FAQ ~
+3. Mappings ~
+
+By default, |CTRL-A| and |CTRL-X| in Normal and Visual mode as well as
+|v_g_CTRL-A| and |v_g_CTRL-X| are mapped, unless already mapped by you.
+To map other keys, use
+>
+  <Plug>(CtrlXA-CtrlA)    Normal and Visual mode CTRL-A
+  <Plug>(CtrlXA-CtrlX)    Normal and Visual mode CTRL-X
+  <Plug>(CtrlXA-gCtrlA)   Visual mode g CTRL-A
+  <Plug>(CtrlXA-gCtrlX)   Visual mode g CTRL-X
+<
+===========================================================================
+4. FAQ ~
 
 Q: Does this plugin integrate well with Tim Pope's vim-speeddating?
 A: Yes, by adding to your `vimrc` the lines
@@ -106,3 +132,4 @@ A: Yes, by adding to your `vimrc` the lines
   nmap <Plug>SpeedDatingFallbackDown <Plug>(CtrlXA-CtrlX)
 <
 
+ vim:tw=78:ts=8:ft=help:norl:

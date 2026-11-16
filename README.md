@@ -6,7 +6,7 @@ Useful, for example,
 - for switching between `pick`, `squash`, `reword`, ... a `git` commit when rebasing, ...
 
 Keyword cycles are provided for common programming and natural languages
-(inspectable in the `ftplugin` respectively `autoload/CtrlXA/langs` folders).
+(inspectable in the `after/ftplugin` respectively `autoload/CtrlXA/langs` folders).
 
 Repetition of the last command by hitting `.` (see `:help .`) is achieved
 
@@ -39,24 +39,26 @@ If you want to add a cycle, say the pair `['sweet', 'bitter']`, to the default l
     augroup END
     ```
 
-Keywords consist of the keyword characters determined by the global variable `g:CtrlXA_iskeyword`.
+Keywords consist of the keyword characters determined by the global variable `g:CtrlXA_iskeyword` (or its buffer-local analogue `b:CtrlXA_iskeyword`).
 By default, this variable takes the same value as `&g:iskeyword` (see `:help iskeyword`) with the exception of the underscore `_` which is removed from `g:CtrlXA_iskeyword`.
 
 If you want the cursor to move to the keyword (among `g:CtrlXA_Toggles`) that was changed after hitting a key (mapped to `<Plug>(CtrlXA-CtrlA)` or `<Plug>(CtrlXA-CtrlX)`), then set the global variable `g:CtrlXA_move` to `1`.
-By default, the cursor only moves to a changed number, as Vim does by default.
+By default, the cursor only moves to a changed number, as Vim does.
 
 If you prefer `i`, `v` and `I`, `V` to run through the letters of the Latin
 alphabet instead of the Roman numerals, move these letters from the pair of
 arrays containing the roman numerals to that containing the Latin alphabet.
 
 There are also localized keyword cycle lists for common (spell) languages.
-Disable them by adding `let g:CtrlXA_localization = 0` to your `Vimrc`.
+They are added in each buffer with `spell` set, for every language in `spelllang` other than English.
+Disable them by adding `let g:CtrlXA_localization = 0` to your `vimrc`.
 To customize them, put a file named after the corresponding (spell) language code, for example, `ro.vim` for Romanian into `$VIMFILES/autoload/CtrlXA/langs/`
 (where `$VIMFILES` is `~/.vim` on Linux and Mac OS and `%USERPROFILE%/vimfiles` on Microsoft Windows, see `:help vimfiles`).
+All such files in `runtimepath` are sourced, so it adds to the bundled one.
 
 # Buffer-Local Setup
 
-There is also the buffer-local list of keyword cycles `b:CtrlXA_iskeyword`, which allows for file-type specific keyword cycles.
+There is also the buffer-local list of keyword cycles `b:CtrlXA_Toggles`, which allows for file-type specific keyword cycles.
 For example, as included by default:
 
 ```vim
@@ -75,6 +77,17 @@ To add keyword cycles for other file types, add
 
 - either the four lines above to `~/.vimrc` on Linux or MacOS (respectively `%USERPROFILE%\_vimrc` on Microsoft Windows), or
 - the last three lines above to `~/.vim/after/ftplugin/gitrebase.vim` on Linux (respectively `%USERPROFILE%\vimfiles\after\ftplugin\gitrebase.vim` on Microsoft Windows).
+
+Vim's own `gitrebase` file-type plug-in maps `<Ctrl-X/A>` to cycle through the rebase commands; to use this plug-in's mappings instead, add `let g:no_gitrebase_maps = 1` to your `vimrc`.
+
+# Mappings
+
+By default, `<Ctrl-X/A>` in normal and visual mode and `g<Ctrl-X/A>` in visual mode are mapped, unless you mapped them already.
+To use other keys, map them to `<Plug>(CtrlXA-CtrlA)`, `<Plug>(CtrlXA-CtrlX)` (normal and visual mode) and `<Plug>(CtrlXA-gCtrlA)`, `<Plug>(CtrlXA-gCtrlX)` (visual mode).
+
+# Tests
+
+Run `test/run.sh` to test headlessly with Vim and Neovim (whichever are installed).
 
 # Related Plug-ins
 
