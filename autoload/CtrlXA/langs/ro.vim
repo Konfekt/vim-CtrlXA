@@ -3,8 +3,8 @@ scriptencoding utf-8
 let b:CtrlXA_Toggles =  get(b:, 'CtrlXA_Toggles', g:CtrlXA_Toggles) + [
       \ ['zero', 'unu', 'doi', 'trei', 'patru', 'cinci', 'șase', 'șapte', 'opt', 'nouă', 'zece', 'unsprezece', 'doisprezece'],
       \ ['Zero', 'Unu', 'Doi', 'Trei', 'Patru', 'Cinci', 'Șase', 'Șapte', 'Opt', 'Nouă', 'Zece', 'Unsprezece', 'Doisprezece'],
-      \ ['primul', doilea', 'treilea', 'patrulea', 'cincilea', 'șaselea', 'șaptelea', 'optulea', 'nouălea', 'zecelea', 'unsprezecelea', 'doisprezecelea'],
-      \ ['Primul', 'doilea', 'treilea', 'patrulea', 'cincilea', 'șaselea', 'șaptelea', 'optulea', 'nouălea', 'zecelea', 'unsprezecelea', 'doisprezecelea'],
+      \ ['primul', 'doilea', 'treilea', 'patrulea', 'cincilea', 'șaselea', 'șaptelea', 'optulea', 'nouălea', 'zecelea', 'unsprezecelea', 'doisprezecelea'],
+      \ ['Primul', 'Doilea', 'Treilea', 'Patrulea', 'Cincilea', 'Șaselea', 'Șaptelea', 'Optulea', 'Nouălea', 'Zecelea', 'Unsprezecelea', 'Doisprezecelea'],
       \
       \ ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie'],
       \ ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'],
